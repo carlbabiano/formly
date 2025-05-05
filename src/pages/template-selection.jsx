@@ -1,4 +1,3 @@
-"use client"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { Shirt, PartyPopper, UserRound, Building, Calendar, Gift, CreditCard, Clipboard, ArrowLeft } from "lucide-react"
