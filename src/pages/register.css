@@ -1,0 +1,155 @@
+:root {
+  --primary-color: #4169e1;
+  --primary-light: #e8f0fe;
+  --border-color: #e0e0e0;
+  --text-color: #333;
+  --text-secondary: #666;
+  --background-color: #f8fafc;
+  --card-background: #fff;
+  --hover-color: #f5f5f5;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --error-color: #e53e3e;
+  --success-color: #38a169;
+}
+
+/* Remove all global styling */
+/* Only style the specific components */
+
+/* Make sure the register container is properly styled */
+.register-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: var(--card-background);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.register-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.register-container h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  background-color: white;
+  color: var(--text-color);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+.register-button {
+  padding: 0.75rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 4px rgba(65, 105, 225, 0.2);
+}
+
+.register-button:hover {
+  background-color: #3a5fcf;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(65, 105, 225, 0.3);
+}
+
+.register-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.response-message {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  background-color: rgba(229, 62, 62, 0.1);
+  color: var(--error-color);
+}
+
+.response-message.success {
+  background-color: rgba(56, 161, 105, 0.1);
+  color: var(--success-color);
+}
+
+.login-button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.login-button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+/* Add a decorative element at the top of the form */
+.register-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary-color), #6a8cff);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
