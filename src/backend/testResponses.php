@@ -3,15 +3,14 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+require_once 'cors.php'; // Ensure this points to your CORS configuration file
 
 // Function to log errors instead of displaying them
 function logError($message) {
     error_log($message);
 }
 
-include 'config.php';
+include 'db.php';
 
 try {
     // Check if survey_responses table exists

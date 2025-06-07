@@ -1,5 +1,6 @@
 <?php
 require_once 'cors.php';
+require_once 'db.php'; // Include the centralized database connection
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 header("Content-Type: application/json");
@@ -9,13 +10,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_log("OTP Verification Started");
 
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]);
-    exit();
-}
+
 
 // Get the JSON input
 $data = json_decode(file_get_contents("php://input"), true);

@@ -2,6 +2,7 @@
 require_once 'cors.php';
 require_once 'email-config.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once 'db.php'; // Include your database connection file
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -25,15 +26,7 @@ function logMessage($message) {
 
 logMessage("Script started");
 
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    logMessage("Database connection successful");
-} catch (PDOException $e) {
-    logMessage("Database connection failed: " . $e->getMessage());
-    echo json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]);
-    exit();
-}
+
 
 // Get the JSON input
 $data = json_decode(file_get_contents("php://input"), true);

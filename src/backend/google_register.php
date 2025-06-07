@@ -1,5 +1,6 @@
 <?php
 require_once 'cors.php';
+require_once 'db.php'; // Include the centralized database connection
 require_once __DIR__ . '/../../vendor/autoload.php';
 use Firebase\JWT\JWT;
 
@@ -8,13 +9,6 @@ header("Content-Type: application/json");
 // Secret key for signing the JWT
 $secretKey = "your_secret_key"; // Replace with a secure key
 
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database connection failed: " . $e->getMessage()]);
-    exit();
-}
 
 // Get the JSON input
 $data = json_decode(file_get_contents("php://input"), true);

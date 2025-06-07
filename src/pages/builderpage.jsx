@@ -1644,7 +1644,7 @@ const handleDropZoneDrop = (e, position) => {
                               <textarea
                                 className={`question-title ${question.required ? "required" : ""}`}
                                 value={question.title}
-                                placeholder="Enter your question here"
+                                placeholder="Multiple Choice"
                                 onChange={(e) => {
                                   setQuestions(
                                     questions.map((q) => (q.id === question.id ? { ...q, title: e.target.value } : q)),

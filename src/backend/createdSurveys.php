@@ -1,20 +1,17 @@
 <?php
 require_once 'cors.php'; // Ensure this points to your CORS configuration file
+require_once 'db.php'; // Include the centralized database connection
 header("Content-Type: application/json");
 
+// Get the user ID from the request (e.g., from a query parameter or token)
+$userId = isset($_GET['userId']) ? intval($_GET['userId']) : null;
+
+if (!$userId) {
+    echo json_encode(["success" => false, "message" => "User ID is required."]);
+    exit;
+}
+
 try {
-    // Connect to the database
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Get the user ID from the request (e.g., from a query parameter or token)
-    $userId = isset($_GET['userId']) ? intval($_GET['userId']) : null;
-
-    if (!$userId) {
-        echo json_encode(["success" => false, "message" => "User ID is required."]);
-        exit;
-    }
-
     // Fetch surveys created by the user - ADDED accepting_responses field
     $stmt = $pdo->prepare("
         SELECT 

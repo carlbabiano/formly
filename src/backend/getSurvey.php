@@ -1,6 +1,7 @@
 <?php
 require_once 'cors.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once 'db.php'; // Include the centralized database connection
 
 header('Content-Type: application/json');
 
@@ -15,9 +16,6 @@ if (!$id) {
 }
 
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     // Fetch the survey details along with the creator's email - ADDED accepting_responses
     $stmt = $pdo->prepare("
         SELECT s.*, u.email AS creator_email

@@ -1,5 +1,6 @@
 <?php
 require_once 'cors.php';
+require_once 'db.php'; // Include the centralized database connection
 header("Content-Type: application/json");
 
 try {
@@ -13,10 +14,6 @@ try {
     
     $surveyId = intval($input['surveyId']);
     $acceptingResponses = $input['acceptingResponses'] ? 1 : 0;
-    
-    // Connect to the database
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // Update the accepting_responses status for the specific survey
     $stmt = $pdo->prepare("UPDATE surveys SET accepting_responses = :accepting_responses WHERE id = :survey_id");

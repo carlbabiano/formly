@@ -3,11 +3,7 @@
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
+require_once 'cors.php'; // Ensure this points to your CORS configuration file
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
@@ -20,10 +16,10 @@ function logError($message) {
 
 try {
     // Include config file
-    if (!file_exists('config.php')) {
-        throw new Exception('Configuration file not found');
+    if (!file_exists('db.php')) {
+        throw new Exception('db file not found');
     }
-    include 'config.php';
+    include 'db.php';
     
     // Get survey ID from query parameter
     $surveyId = isset($_GET['surveyId']) ? intval($_GET['surveyId']) : null;

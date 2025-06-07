@@ -80,7 +80,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("formly-production.up.railway.app/formlydb/formly/src/backend/login.php", {
+      const response = await axios.post("http://localhost/formlydb/formly/src/backend/login.php", {
         email: formData.email,
         password: formData.password,
       })

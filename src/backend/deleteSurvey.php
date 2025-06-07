@@ -1,22 +1,19 @@
 <?php
 require_once 'cors.php'; // Ensure this points to your CORS configuration file
+require_once 'db.php'; // Include the centralized database connection
 header("Content-Type: application/json");
 
+// Get the request body
+$input = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($input['surveyId'])) {
+    echo json_encode(["success" => false, "message" => "Survey ID is required."]);
+    exit;
+}
+
+$surveyId = intval($input['surveyId']);
+
 try {
-    // Connect to the database
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Get the request body
-    $input = json_decode(file_get_contents('php://input'), true);
-    
-    if (!isset($input['surveyId'])) {
-        echo json_encode(["success" => false, "message" => "Survey ID is required."]);
-        exit;
-    }
-
-    $surveyId = intval($input['surveyId']);
-
     // Start a transaction to ensure data integrity
     $pdo->beginTransaction();
 
@@ -55,4 +52,3 @@ try {
     // Handle errors
     echo json_encode(["success" => false, "message" => $e->getMessage()]);
 }
-?>
