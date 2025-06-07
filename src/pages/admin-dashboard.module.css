@@ -1,0 +1,696 @@
+/* Admin Dashboard Styles */
+/* CSS variables scoped to the component */
+.adminDashboardContainer {
+  --primary-color: #4169e1;
+  --primary-light: #e8f0fe;
+  --border-color: #e0e0e0;
+  --text-color: #333;
+  --text-secondary: #666;
+  --background-color: #f8fafc;
+  --card-background: #fff;
+  --hover-color: #f5f5f5;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --danger-color: #dc2626;
+  --danger-light: #fef2f2;
+  --danger-hover: #b91c1c;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.adminDashboard {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  background-color: var(--background-color);
+  background-image: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+  overflow-x: hidden;
+}
+
+/* Dashboard Header */
+.dashboardHeader {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.dashboardTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.dashboardActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Search Container */
+.searchContainer {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  background-color: white;
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+}
+
+/* Filter Container */
+.filterContainer {
+  position: relative;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+  background-color: var(--hover-color);
+}
+
+.filterDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 180px;
+  overflow: hidden;
+}
+
+.filterOption {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterOption:hover {
+  background-color: var(--hover-color);
+}
+
+.filterOption.active {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Create Form Button */
+.createFormButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(65, 105, 225, 0.2);
+}
+
+.createFormButton:hover {
+  background-color: #3a5fcf;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(65, 105, 225, 0.3);
+}
+
+/* Forms Container */
+.formsContainer {
+  flex: 1;
+  padding: 0 2rem 2rem;
+  overflow-y: auto;
+}
+
+/* Loading State */
+.loadingState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* No Forms State */
+.noForms {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  height: 300px;
+  background-color: white;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.noForms p {
+  margin-bottom: 1rem;
+}
+
+/* Forms Grid */
+.formsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Form Card */
+.formCard {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.formCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border-color: var(--primary-color);
+}
+
+.formCard:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-color), #6a8cff);
+  z-index: 1;
+}
+
+.formThumbnail {
+  height: 120px;
+  background-color: var(--primary-light);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+.formDetails {
+  padding: 1rem;
+}
+
+.formTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.formMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+/* Status Badge */
+.statusBadge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.statusBadge.accepting {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.statusBadge.notAccepting {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Form Actions */
+.formActions {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+}
+
+/* More Vertical Button - Unique styling to avoid conflicts */
+.moreVerticalButton {
+  background: white !important;
+  border: 1px solid #e0e0e0 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+  color: #333 !important;
+  transition: all 0.2s ease !important;
+  z-index: 15 !important;
+  position: relative !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+}
+
+.moreVerticalButton:hover {
+  background-color: #f5f5f5 !important;
+  border-color: #4169e1 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  color: #4169e1 !important;
+}
+
+.moreVerticalButton:focus {
+  outline: none !important;
+  border-color: #4169e1 !important;
+}
+
+/* Ensure the SVG inside renders properly */
+.moreVerticalButton svg {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: inherit !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  pointer-events: none !important;
+}
+
+.moreVerticalButton:hover svg {
+  color: #4169e1 !important;
+  stroke: #4169e1 !important;
+}
+
+.actionButton {
+  background: white;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  color: var(--text-color);
+  transition: all 0.2s ease;
+  z-index: 5;
+  position: relative;
+}
+
+.actionButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--primary-color);
+}
+
+.moreButton {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  z-index: 10;
+}
+
+.moreButton:hover {
+  background-color: var(--hover-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Action Dropdown */
+.actionDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.25rem;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  min-width: 160px;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background-color: var(--hover-color);
+}
+
+.dropdownItem.delete {
+  color: #e53e3e;
+}
+
+.dropdownItem.delete:hover {
+  background-color: rgba(229, 62, 62, 0.1);
+}
+
+/* Enhanced Confirmation Dialog - Unique classnames */
+.adminDashboardConfirmationOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: adminDashboardFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes adminDashboardFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes adminDashboardSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.adminDashboardConfirmationDialog {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff, #fafbfc);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 0;
+  max-width: 480px;
+  width: 90%;
+  max-height: 90vh;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px
+    rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.9) translateY(-20px);
+  animation: adminDashboardSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.1s;
+}
+
+.adminDashboardConfirmationDialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--danger-color), #ef4444);
+}
+
+.adminDashboardConfirmationHeader {
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.adminDashboardConfirmationIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, var(--danger-light), #fef2f2);
+  border: 2px solid #fecaca;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--danger-color);
+}
+
+.adminDashboardConfirmationDialog h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.025em;
+}
+
+.adminDashboardConfirmationContent {
+  padding: 0 2rem 1.5rem;
+  text-align: center;
+}
+
+.adminDashboardConfirmationDialog p {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.adminDashboardSurveyTitle {
+  font-weight: 600;
+  color: var(--text-color);
+  background: var(--primary-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.adminDashboardWarningText {
+  color: var(--danger-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--danger-light);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  margin: 1rem 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.adminDashboardConfirmationButtons {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.5rem 2rem 2rem;
+  background: #fafbfc;
+  border-top: 1px solid #f1f5f9;
+}
+
+.adminDashboardCancelButton {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.adminDashboardCancelButton:hover {
+  background: var(--hover-color);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.adminDashboardCancelButton:active {
+  transform: translateY(0);
+}
+
+.adminDashboardDeleteButton {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, var(--danger-color), #dc2626);
+  border: 2px solid var(--danger-color);
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+}
+
+.adminDashboardDeleteButton:hover {
+  background: linear-gradient(135deg, var(--danger-hover), #991b1b);
+  border-color: var(--danger-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+}
+
+.adminDashboardDeleteButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments for confirmation dialog */
+@media (max-width: 768px) {
+  .adminDashboardConfirmationDialog {
+    margin: 1rem;
+    max-width: none;
+    width: calc(100% - 2rem);
+  }
+
+  .adminDashboardConfirmationHeader {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+
+  .adminDashboardConfirmationContent {
+    padding: 0 1.5rem 1rem;
+  }
+
+  .adminDashboardConfirmationButtons {
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .adminDashboardConfirmationIcon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .adminDashboardConfirmationDialog h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Ensure SVG icons render properly */
+.actionButton svg {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: #666 !important;
+  fill: currentColor !important;
+}
+
+.actionButton:hover svg {
+  color: var(--primary-color) !important;
+}

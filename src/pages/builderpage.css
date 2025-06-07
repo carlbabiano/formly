@@ -1,0 +1,3541 @@
+/* Base styles */
+:root {
+  --primary-color: #4169e1;
+  --primary-light: #e8f0fe;
+  --border-color: #e0e0e0;
+  --text-color: #333;
+  --text_secondary: #666;
+  --background-color: #f8fafc;
+  --card-background: #fff;
+  --hover-color: #f5f5f5;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --success-color: #34c759;
+  --success-hover: #2eb350;
+  --scrollbar-thumb: #c1c1c1;
+  --scrollbar-track: #f1f1f1;
+  --header-height: 60px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Update the body background with a more subtle design */
+body {
+  font-family: "Segoe UI";
+  color: var(--text-color);
+  background-color: var(--background-color);
+  line-height: 1.5;
+  background: #f8fafc;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Survey Builder Layout */
+.survey-builder {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  background-color: #f8fafc;
+  width: 100%;
+  /* Remove overflow-x: hidden; as it can interfere with sticky positioning */
+}
+
+.survey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: white;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  position: sticky; /* Change from sticky to fixed */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 1000; /* Increase z-index to ensure it stays on top */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.logo h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Creates space between the buttons */
+}
+
+.survey-title-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* Add a new state for the selected survey title card */
+.survey-title-card.selected {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-top: 3px solid var(--primary-color);
+}
+
+/* Question card styles */
+.question-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(230, 230, 230, 0.7);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  border-radius: var(--border-radius);
+  margin-bottom: 16px;
+  overflow: visible;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.survey-title-card:hover,
+.question-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Keep selection/focus effects for question cards */
+.question-card.selected {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-top: 3px solid var(--primary-color);
+}
+
+.question-card:focus,
+.question-card:active {
+  outline: none;
+}
+
+/* Add a subtle top border instead */
+.question-card.selected::before {
+  display: none;
+}
+
+.survey-title-card.preview-card,
+.question-card.preview-card {
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.survey-title-card.no-description {
+  height: 70px; /* Smaller height when no description */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 23px;
+}
+
+/* Style for the form title */
+.survey-title,
+.survey-title-preview {
+  resize: none; /* Prevent manual resizing */
+  font-size: 22px; /* Adjust the font size */
+  font-weight: 500;
+  font-family: "Segoe Ui", sans-serif;
+  color: var(--text-color); /* Use your primary text color */
+  border: none; /* Remove any borders */
+  background: transparent; /* Transparent background */
+  width: 100%; /* Allow the title to take up the full width */
+  max-width: 100%; /* Optional: Limit the maximum width */
+  margin-bottom: 8px; /* Add spacing below the title */
+  outline: none; /* Remove the default focus outline */
+  cursor: text; /* Show text cursor when hovering */
+  line-height: 1.8; /* Increase line height for more height */
+  padding: 8px 8px; /* Add vertical padding for extra height */
+}
+
+/* Placeholder text for the form title */
+.survey-title::placeholder {
+  color: var(--text-secondary); /* Use a lighter color for the placeholder */
+}
+
+/* Focus state for the form title */
+.survey-title:focus {
+  border-bottom: 2px solid var(--primary-color); /* Add a bottom border on focus */
+  background-color: rgba(65, 105, 225, 0.05);
+  outline: none; /* Remove the default outline */
+}
+
+/* Styling for description */
+.survey-description,
+.survey-description-preview {
+  font-size: 16px;
+  font-family: "Segoe Ui", sans-serif;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border: none;
+  background: transparent;
+  width: 100%;
+  margin-bottom: 8px;
+  margin-left: 11.5px;
+  outline: none;
+  resize: none; /* Prevent manual resizing */
+  overflow: hidden; /* Hide scrollbar */
+  line-height: 1.5; /* Adjust line height for better readability */
+}
+
+/* Highlight the drop target */
+.question-card.drop-target {
+  border: 2px dashed var(--primary-color); /* Blue dashed border */
+  background-color: rgba(65, 105, 225, 0.05); /* Light blue background */
+  transition: background-color 0.2s ease, border 0.2s ease;
+  box-shadow: 0 0 0 4px rgba(65, 105, 225, 0.1);
+}
+
+/* Style for the dragged question */
+.question-card.dragging {
+  opacity: 0.5; /* Make the dragged question semi-transparent */
+  cursor: grabbing;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.question-title-preview,
+.question-title {
+  resize: none; /* Prevent manual resizing */
+  font-size: 17px; /* Match the font size of the long-text h3 */
+  font-family: "Segoe Ui", sans-serif; /* Match the font family */
+  font-weight: 500; /* Match the font weight */
+  color: var(--text-color); /* Use the primary text color */
+  border: none; /* Remove any borders */
+  background: transparent; /* Transparent background */
+  width: 80%; /* Full width */
+  max-width: 100%; /* Prevent overflow */
+  margin-bottom: 8px; /* Add spacing below the title */
+  outline: none; /* Remove the default focus outline */
+  cursor: text; /* Show text cursor when hovering */
+  line-height: 1.5; /* Adjust line height for better readability */
+  padding: 0 5px; /* Remove padding */
+}
+
+.question-title::placeholder {
+  color: var(--text-secondary); /* Use a lighter color for the placeholder */
+}
+
+.question-title:focus {
+  border-bottom: 2px solid var(--primary-color); /* Add a bottom border on focus */
+  background-color: rgba(65, 105, 225, 0.05);
+  outline: none; /* Remove the default outline */
+}
+
+.created-by {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: var(--primary-color);
+  margin-right: 6px;
+  transition: all 0.2s ease;
+}
+
+.icon-button:hover {
+  background-color: rgba(65, 105, 225, 0.1);
+}
+
+.icon-button.required-badge {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.icon-button.required-badge.active {
+  color: #e53e3e; /* Red color when required is active */
+  background-color: rgba(229, 62, 62, 0.1); /* Light red background */
+}
+
+.icon-button.required-badge:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.question-count-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background-color: var(--primary-light); /* Changed to light blue */
+  color: var(--primary-color); /* Changed to blue text */
+  border-radius: 20px; /* More rounded corners */
+  font-size: 14px;
+  font-weight: 500; /* Added font weight */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.header-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.preview-button:focus,
+.preview-button {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  outline: none;
+}
+
+.preview-button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+.publish-button {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 2px 4px rgba(65, 105, 225, 0.2);
+}
+
+.publish-button:hover {
+  background-color: #3a5fcf;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(65, 105, 225, 0.3);
+}
+
+/* Add these styles for the publish button and sharelink popup */
+.publish-button-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Survey Content */
+.survey-content {
+  display: flex;
+  justify-content: center;  /* ← ADDED: Centers the content */
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+}
+
+/* Enhance the panels with better background and shadow */
+.question-types-panel,
+.survey-questions-panel {
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(230, 230, 230, 0.7);
+}
+
+/* Add a subtle gradient to the question types panel */
+.question-types-panel {
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 84px;
+  max-height: calc(100vh - 109px);
+  align-self: flex-start;
+  margin-left: 20px;
+  border: 1px solid var(--border-color);
+  overflow-y: auto;
+  z-index: 100;
+  position: sticky;
+}
+
+.survey-questions-panel {
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 60px; /* Add space at the bottom */
+  border: 1px solid var(--border-color);
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-color);
+}
+
+.panel-description {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding-left: 2px;
+  border-left: 2px solid var(--primary-color);
+  padding-left: 8px;
+}
+
+/* Add a subtle animation to the question types list */
+/* Enhanced Question Types List */
+.question-types-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 8px;
+  flex: 1;
+  padding: 8px;
+}
+
+/* Add a scrollbar styling */
+.question-types-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.question-types-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.question-types-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.question-types-list::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Enhanced Question Type Item */
+.question-type-item {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.question-type-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  background-color: rgba(65, 105, 225, 0.02);
+}
+
+/* Add a subtle left border highlight on hover */
+.question-type-item:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--primary-color);
+}
+
+.question-type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--primary-light);
+  border-radius: 10px;
+  margin-right: 14px;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.question-type-item:hover .question-type-icon {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, var(--primary-light), #d8e6fd);
+}
+
+.question-type-info h3 {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.question-type-item:hover .question-type-info h3 {
+  color: var(--primary-color);
+  transform: translateX(2px);
+}
+
+.question-type-info p {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Survey Questions List */
+.survey-questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.question-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+}
+
+/* Drag handle styles */
+.drag-handle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: grab;
+  color: var(--text-secondary);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.drag-handle:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Add these new styles for the vertical action buttons */
+.question-actions-vertical {
+  position: absolute;
+  top: 50%; /* Center vertically relative to the question card */
+  right: -500px; /* Move it outside the right edge of the question card */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background-color: white;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 2000;
+  border: 1px solid var(--border-color);
+}
+
+/* Show the actions when the class is visible OR when the parent card is selected */
+.question-actions-vertical.visible,
+.question-card.selected .question-actions-vertical {
+  opacity: 1;
+  visibility: visible;
+  right: 16px; /* Position inside the card when visible */
+  transform: translateY(-50%) translateX(190%);
+}
+
+/* Improve the icon buttons in the vertical actions */
+.question-actions-vertical .icon-button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  margin: 0;
+  padding: 0;
+}
+
+.question-actions-vertical .icon-button:hover {
+  background-color: #e8e8e8;
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.question-actions-vertical .icon-button.required-badge {
+  background-color: #f5f5f5;
+}
+
+.question-actions-vertical .icon-button.required-badge.active {
+  color: #e53e3e;
+  background-color: rgba(229, 62, 62, 0.1);
+}
+
+/* Update the question card to have relative positioning and padding for the action buttons */
+
+/* Fix position of question contents */
+.multiple-choice-question,
+.checkbox-question,
+.dropdown-question,
+.long-text-question,
+.short-text-question,
+.rating-question,
+.date-question {
+  position: relative;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  background-color: var(--card-background);
+}
+
+.linear-scaling-question,
+.time-question {
+  position: relative;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  background-color: var(--card-background);
+}
+
+/* Add styling for the question title container */
+.question-title-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.question-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.question-header .required-indicator {
+  color: #e53e3e;
+  margin-left: 4px;
+  font-weight: bold;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.question-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  color: var(--primary-color);
+  background-color: var(--primary-light);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.required-badge {
+  display: none;
+}
+
+.delete-option {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.delete-option:hover {
+  color: #f44336;
+  transform: scale(1.1);
+}
+
+/* Update the add-option-button for multiple choice to match other question types */
+.add-option-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-size: 14px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background-color: var(--primary-light);
+  width: 20%;
+  margin-left: 35px; /* Changed from 32px to 35px to match other question types */
+}
+
+.add-option-button:hover {
+  background-color: rgba(65, 105, 225, 0.15);
+  transform: translateY(-1px);
+}
+
+/*Multiple Choice*/
+.option-input,
+.option-input-preview {
+  resize: none; /* Prevent manual resizing */
+  font-size: 14px; /* Adjust the font size */
+  font-family: "Segoe Ui", sans-serif;
+  font-weight: 400;
+  color: var(--text-color); /* Use your primary text color */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  background: #fff; /* White background */
+  width: 80%; /* Adjust width to fit within the container */
+  padding: 8px 12px; /* Add padding */
+  margin-bottom: 8px; /* Add spacing below each option */
+  outline: none; /* Remove the default focus outline */
+  line-height: 1.5; /* Adjust line height */
+  transition: all 0.2s ease;
+}
+
+.option-input:focus {
+  border-bottom: 2px solid var(--primary-color); /* Add a bottom border on focus */
+  background-color: rgba(65, 105, 225, 0.05);
+  outline: none; /* Remove the default outline */
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 32px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.option-label {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+/*Short Text*/
+.short-text-input {
+  font-size: 14px; /* Adjust the font size */
+  font-family: "Segoe Ui", sans-serif;
+  font-weight: 400;
+  color: var(--text-color); /* Use your primary text color */
+  background: transparent; /* White background */
+  width: 70%;
+  outline: none;
+  padding: 10px 12px; /* Add padding */
+  margin-bottom: 8px; /* Add spacing below each option */
+  line-height: 1.5; /* Adjust line height */
+  margin-left: 35px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.short-text-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+}
+
+.long-text-input {
+  font-size: 14px;
+  font-family: "Segoe Ui", sans-serif;
+  font-weight: 400;
+  color: var(--text-color);
+  background: transparent;
+  width: 70%;
+  height: 100px; /* Adjust height as needed */
+  padding: 10px 12px; /* Add padding */
+  margin-bottom: 8px;
+  margin-left: 35px;
+  outline: none;
+  resize: none; /* Prevent manual resizing */
+  overflow: hidden; /* Hide scrollbar */
+  line-height: 1.5; /* Adjust line height for better readability */
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.long-text-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+}
+
+.option-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color); /* Border to create the square */
+  border-radius: 4px; /* Optional: Add rounded corners */
+  background-color: transparent; /* Transparent background */
+  display: inline-block;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Checkmark when the checkbox is checked */
+input[type="checkbox"]:checked + .option-checkbox {
+  background-color: var(--primary-color); /* Background color for checked state */
+  border-color: var(--primary-color); /* Border color for checked state */
+}
+
+input[type="checkbox"]:checked + .option-checkbox::after {
+  content: "";
+  position: absolute;
+  top: 45%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg); /* Center and rotate */
+}
+
+/* Rating Question Container */
+.rating-question {
+  position: relative;
+}
+
+/* Rating Settings Panel */
+.rating-settings {
+  display: flex;
+  gap: 20px;
+  margin-left: 32px;
+  margin-top: 16px;
+}
+
+.rating-settings-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.rating-settings-group select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  width: 120px;
+  background-color: white;
+  color: black;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.rating-settings-group select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+  outline: none;
+}
+
+/* Rating Preview */
+.rating-preview {
+  display: flex;
+  gap: 12px;
+  margin-left: 32px;
+  margin-top: 16px;
+}
+
+/* Rating Button */
+.rating-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.rating-button:hover {
+  background-color: rgba(65, 105, 225, 0.1);
+  transform: scale(1.05);
+}
+
+.rating-button.hovered {
+  background-color: rgba(65, 105, 225, 0.1);
+}
+
+/* Rating Icons */
+.rating-icon {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: scale(1);
+}
+
+.rating-icon.active,
+.rating-icon.hovered {
+  transform: scale(1.2);
+}
+
+/* Star Rating */
+.rating-star {
+  fill: transparent;
+  stroke: #d1d5db;
+}
+
+.rating-star.active {
+  fill: #ffd700;
+  stroke: #ffd700;
+}
+
+.rating-star.hovered {
+  fill: #ffd700; /* Full color on hover */
+  stroke: #ffd700;
+  opacity: 0.7; /* Slightly transparent to distinguish from active */
+}
+
+/* Heart Rating */
+.rating-heart {
+  fill: transparent;
+  stroke: #d1d5db;
+}
+
+.rating-heart.active {
+  fill: #ff0000;
+  stroke: #ff0000;
+}
+
+.rating-heart.hovered {
+  fill: #ff0000; /* Full color on hover */
+  stroke: #ff0000;
+  opacity: 0.7; /* Slightly transparent to distinguish from active */
+}
+
+/* ThumbsUp Rating - Fixed sleeve implementation */
+.rating-thumbs-container {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+/* Base outline that's always visible */
+.rating-thumbs-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  fill: transparent;
+  stroke: #d1d5db;
+  stroke-width: 2;
+  z-index: 1;
+}
+
+.rating-thumbs-base.active,
+.rating-thumbs-base.hovered {
+  stroke: var(--primary-color);
+  stroke-width: 2.5;
+}
+
+/* Fill that goes behind the outline */
+.rating-thumbs-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  stroke: transparent;
+  z-index: 0;
+}
+
+.rating-thumbs-fill.active {
+  fill: var(--primary-color);
+  opacity: 0.8;
+}
+
+.rating-thumbs-fill.hovered {
+  fill: rgba(65, 105, 225, 0.3);
+}
+
+/* Emoji Rating */
+.rating-emoji {
+  font-size: 32px;
+  opacity: 0.5;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: scale(1);
+}
+
+.rating-emoji.active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.rating-emoji.hovered {
+  opacity: 1; /* Full opacity on hover */
+  transform: scale(1.2);
+}
+
+/* Dropdown styling */
+.dropdown-select {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px 12px;
+  width: 25%;
+  margin-bottom: 16px;
+  margin-left: 30px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+  outline: none;
+}
+
+select {
+  background-color: white !important;
+  color: black !important;
+}
+
+.dropdown-option-input {
+  resize: none; /* Prevent manual resizing */
+  font-size: 14px; /* Adjust the font size */
+  font-family: "Segoe Ui", sans-serif;
+  font-weight: 400;
+  color: var(--text-color); /* Use your primary text color */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  background: #fff; /* White background */
+  width: 80%; /* Adjust width to fit within the container */
+  padding: 8px 12px; /* Add padding */
+  margin-bottom: 8px; /* Add spacing below each option */
+  outline: none; /* Remove the default focus outline */
+  line-height: 1.5; /* Adjust line height */
+  margin-left: 35px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-option-input:focus {
+  border-bottom: 2px solid var(--primary-color); /* Add a bottom border on focus */
+  background-color: rgba(65, 105, 225, 0.05);
+  outline: none; /* Remove the default outline */
+}
+
+/* Make sure the dropdown question's add-option-button has the same margin */
+.dropdown-question .add-option-button {
+  margin-left: 65px; /* This is already correct */
+}
+
+/* Date Input Container */
+.date-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  margin-left: 32px;
+}
+
+.date-input-container .date-input {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: var(--card-background);
+  color: var(--text-color);
+  width: 200px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.date-input-container .date-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+  outline: none;
+}
+
+.time-input-container {
+  display: flex; /* Use flexbox to align the input and icon */
+  align-items: center; /* Vertically center the input and icon */
+  gap: 8px; /* Add space between the input and the icon */
+  margin-top: 16px;
+  margin-left: 32px;
+}
+
+.time-input {
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--card-background);
+  color: var(--text-color);
+  width: 200px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.time-input-container .time-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.05);
+  outline: none;
+}
+
+.time-icon {
+  color: var(--text-secondary);
+  pointer-events: none; /* Prevent interaction with the icon */
+}
+/* React DatePicker Portal Styling */
+.react-datepicker-popper {
+  z-index: 9999 !important; /* Ensure date picker appears above all other elements */
+}
+
+.react-datepicker-wrapper {
+  display: inline-block;
+  width: auto;
+}
+
+.react-datepicker__input-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Make sure the date and time inputs have proper z-index */
+.date-input-container,
+.time-input-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* When the date/time picker is open, increase the z-index */
+.date-input-container:focus-within,
+.time-input-container:focus-within {
+  z-index: 1000;
+}
+
+/* Ensure the date and time inputs themselves have proper styling */
+.date-input,
+.time-input {
+  position: relative;
+  z-index: 1;
+}
+
+/* Linear Scaling Question Container */
+.linear-scaling-question {
+  position: relative;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  background-color: var(--card-background);
+  margin-bottom: 16px;
+}
+
+/* Edit Mode: Min/Max Settings */
+.linear-scaling-settings {
+  display: flex;
+  gap: 20px;
+  margin-left: 32px;
+  margin-top: 16px;
+}
+
+.linear-scaling-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.linear-scaling-item label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.linear-scaling-item select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  width: 120px;
+  background-color: white;
+  color: black;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.linear-scaling-item select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+  outline: none;
+}
+
+.linear-scaling-item input {
+  margin-top: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  width: 150px;
+  background-color: white;
+  color: black;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.linear-scaling-item input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+  outline: none;
+}
+
+/* Preview Mode: Full Structure */
+.linear-scaling-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 32px;
+  margin-top: 16px;
+}
+
+.linear-scaling-preview .linear-scaling-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.linear-scaling-preview .linear-scaling-scale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  background-color: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.scale-point {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.scale-number {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px; /* Space between the number and the radio button */
+}
+
+.scale-point input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.radio-circle {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scale-point input[type="radio"]:checked + .radio-circle {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+}
+
+.scale-point input[type="radio"]:hover + .radio-circle {
+  border-color: var(--primary-color);
+}
+
+/* Add subtle animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Yes/No Question */
+.yes-no-question {
+  position: relative;
+  padding: 16px;
+}
+
+.yes-no-options {
+  display: flex;
+  gap: 24px;
+  margin-left: 32px;
+  margin-top: 16px;
+}
+
+.yes-no-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yes-no-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.yes-no-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yes-no-icon.yes {
+  color: #38a169; /* Green color for Yes */
+}
+
+.yes-no-icon.no {
+  color: #e53e3e; /* Red color for No */
+}
+
+/* Ranking Question */
+.ranking-question {
+  position: relative;
+  padding: 16px;
+}
+
+/* Add a consistent add-option-button for ranking */
+.ranking-question .add-option-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-size: 14px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background-color: var(--primary-light);
+  width: 20%;
+  margin-left: 35px;
+}
+
+.ranking-question .add-option-button:hover {
+  background-color: rgba(65, 105, 225, 0.15);
+  transform: translateY(-1px);
+}
+
+.ranking-items {
+  margin-left: 32px;
+  margin-top: 16px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.ranking-item.preview {
+  cursor: grab;
+}
+
+.ranking-item.preview:active {
+  cursor: grabbing;
+}
+
+.ranking-item:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-item-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  border-radius: 50%;
+  font-weight: 500;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.ranking-item-text {
+  flex: 1;
+  font-size: 14px;
+}
+
+.ranking-drag-icon {
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.ranking-instructions {
+  margin-top: 16px;
+  margin-left: 32px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.ranking-item-input {
+  flex: 1;
+  border: none;
+  font-size: 14px;
+  padding: 4px;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  color: var(--text-color);
+  background-color: rgba(65, 105, 225, 0.05);
+  border-radius: 4px;
+}
+
+.ranking-item-input:focus {
+  border-bottom: 2px solid var(--primary-color);
+  background-color: rgba(65, 105, 225, 0.05);
+  outline: none;
+}
+
+/* Grid Questions (Multi Grid and Checkbox Grid) */
+.grid-question {
+  position: relative;
+  padding: 16px;
+}
+
+/* Update the grid question styles to be simpler in non-preview mode */
+.grid-container {
+  margin-left: 32px;
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+/* Simplify the grid table in non-preview mode */
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.grid-table th,
+.grid-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.grid-table th:first-child,
+.grid-table td:first-child {
+  text-align: left;
+  min-width: 150px;
+}
+
+/* Simplify the grid header and row cells */
+.grid-header-cell,
+.grid-row-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.grid-header-input,
+.grid-row-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 4px;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+}
+
+.grid-header-input:focus,
+.grid-row-input:focus {
+  background-color: rgba(65, 105, 225, 0.05);
+}
+
+/* Make delete buttons more subtle */
+.delete-grid-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  margin-left: 4px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.5;
+}
+
+.delete-grid-item:hover {
+  color: #f44336;
+  background-color: rgba(244, 67, 54, 0.1);
+  opacity: 1;
+}
+
+/* Simplify the add row button */
+.add-grid-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-size: 14px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  width: auto;
+}
+
+.add-grid-row:hover {
+  background-color: var(--primary-light);
+}
+
+/* Simplify the add column button */
+.add-grid-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.add-grid-item:hover {
+  background-color: var(--primary-light);
+  opacity: 1;
+}
+
+/* Simplify the checkbox styling for grid */
+.checkbox-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.grid-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-custom {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.grid-checkbox:checked + .checkbox-custom::after {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--primary-color);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.grid-checkbox:checked + .checkbox-custom {
+  background-color: var(--primary-light);
+  border-color: var(--primary-color);
+}
+
+/* Add simplified styles for non-preview mode */
+.grid-question:not(.preview-card) .grid-table {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.grid-question:not(.preview-card) .grid-table th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+/* Make the grid more compact in non-preview mode */
+.grid-question:not(.preview-card) .grid-table th,
+.grid-question:not(.preview-card) .grid-table td {
+  padding: 8px;
+}
+
+/* Grid Editor Styles (Google Forms style) */
+.grid-editor {
+  margin-left: 32px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.grid-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grid-section-header {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-color);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.grid-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grid-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid-item-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 400px;
+  color: var(--text-color);
+}
+
+.grid-item-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+  border: none;
+  outline: none;
+}
+
+.grid-editor .add-option-button {
+  margin-left: 0;
+  width: auto;
+  max-width: 150px;
+}
+
+/* Multi Grid and Checkbox Grid - Update to match other inputs */
+.grid-item-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 400px;
+  color: var(--text-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.grid-item-input:focus {
+  border-color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  background-color: rgba(65, 105, 225, 0.05);
+  outline: none;
+}
+
+/* Make grid editor more consistent with other inputs */
+.grid-editor {
+  margin-left: 35px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Update the add button for grid questions to match other question types */
+.grid-editor .add-option-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-size: 14px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background-color: var(--primary-light);
+  width: auto;
+  max-width: 150px;
+  margin-left: 0;
+}
+
+.grid-editor .add-option-button:hover {
+  background-color: rgba(65, 105, 225, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Improve grid table styling in preview mode */
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.grid-table th {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #f8f9fa;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.grid-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.grid-table th:first-child,
+.grid-table td:first-child {
+  text-align: left;
+  min-width: 150px;
+  border-right: 1px solid var(--border-color);
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+/* Improve radio button styling in grid */
+.grid-table input[type="radio"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.grid-table input[type="radio"]:checked {
+  border: 4px solid var(--primary-color);
+  background-color: white;
+}
+
+/* Improve checkbox styling in grid */
+.checkbox-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  background-color: transparent;
+  display: inline-block;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.grid-checkbox:checked + .checkbox-custom {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.grid-checkbox:checked + .checkbox-custom::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.survey-title-card.preview-card,
+.question-card.preview-card {
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.survey-title-card.no-description {
+  height: 70px; /* Smaller height when no description */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 23px;
+}
+
+/* Style for the form title */
+.survey-title,
+.survey-title-preview {
+  resize: none; /* Prevent manual resizing */
+  font-size: 22px; /* Adjust the font size */
+  font-weight: 500;
+  font-family: "Segoe Ui", sans-serif;
+  color: var(--text-color); /* Use your primary text color */
+  border: none; /* Remove any borders */
+  background: transparent; /* Transparent background */
+  width: 100%; /* Allow the title to take up the full width */
+  max-width: 100%; /* Optional: Limit the maximum width */
+  margin-bottom: 8px; /* Add spacing below the title */
+  outline: none; /* Remove the default focus outline */
+  cursor: text; /* Show text cursor when hovering */
+  line-height: 1.8; /* Increase line height for more height */
+  padding: 8px 8px; /* Add vertical padding for extra height */
+}
+
+/* Placeholder text for the form title */
+.survey-title::placeholder {
+  color: var(--text-secondary); /* Use a lighter color for the placeholder */
+}
+
+/* Focus state for the form title */
+.survey-title:focus {
+  border-bottom: 2px solid var(--primary-color); /* Add a bottom border on focus */
+  background-color: rgba(65, 105, 225, 0.05);
+  outline: none; /* Remove the default outline */
+}
+
+/* Styling for description */
+.survey-description,
+.survey-description-preview {
+  font-size: 16px;
+  font-family: "Segoe Ui", sans-serif;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border: none;
+  background: transparent;
+  width: 100%;
+  margin-bottom: 8px;
+  margin-left: 11.5px;
+  outline: none;
+  resize: none; /* Prevent manual resizing */
+  overflow: hidden; /* Hide scrollbar */
+  line-height: 1.5; /* Adjust line height for better readability */
+}
+
+/* Highlight the drop target */
+.question-card.drop-target {
+  border: 2px dashed var(--primary-color); /* Blue dashed border */
+  background-color: rgba(65, 105, 225, 0.05); /* Light blue background */
+  transition: background-color 0.2s ease, border 0.2s ease;
+  box-shadow: 0 0 0 4px rgba(65, 105, 225, 0.1);
+}
+
+/* Style for the dragged question */
+.question-card.dragging {
+  opacity: 0.5; /* Make the dragged question semi-transparent */
+  cursor: grabbing;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.sharelink-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  margin-left: 4px;
+}
+
+.sharelink-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--primary-color);
+}
+
+.sharelink-popup {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  width: 200px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.popup-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+}
+
+.popup-option:hover {
+  background-color: var(--hover-color);
+}
+
+.popup-option:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.left-panel-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 300px;
+  flex-shrink: 0;
+  /* Remove margin-left: 20px; */
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease;
+  width: fit-content;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.back-button:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+}
+
+/* Responses Section Styles */
+.responses-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-color);
+  position: relative;
+}
+
+.separator {
+  color: var(--border-color);
+  font-weight: 300;
+  margin: 0 4px;
+}
+
+.settings-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.settings-button:hover {
+  background-color: rgba(65, 105, 225, 0.1);
+  color: var(--primary-color);
+}
+
+.responses-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 250px;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.responses-dropdown .dropdown-item {
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.responses-dropdown .dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-disclaimer {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: red;
+  font-style: italic;
+  background-color: var(--background-light);
+  border-top: 1px solid var(--border-color);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Toggle Switch Styles */
+/* Toggle Switch Styles */
+.toggle-buttons {
+  display: flex;
+  gap: 4px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 50px;
+  justify-content: center;
+}
+
+.toggle-btn:hover {
+  background: #e9ecef;
+}
+
+.toggle-btn.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.toggle-btn:first-child.active {
+  background: #28a745;
+}
+
+.toggle-btn:last-child.active {
+  background: #dc3545;
+}
+
+.accepting-responses-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.accepting-responses-toggle span {
+  font-size: 14px;
+  color: #333;
+}
+
+.publish-notice {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+.toggle-buttons.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.toggle-btn.disabled {
+  background: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #ddd;
+}
+
+.toggle-btn.disabled:hover {
+  background: #f5f5f5;
+}
+
+/* Confirmation Dialog */
+.confirmationOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.confirmationDialog {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.confirmationDialog h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.confirmationDialog p {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.warningText {
+  color: #e53e3e;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.confirmationButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+  background-color: var(--hover-color);
+}
+
+.deleteButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #e53e3e;
+  border: none;
+  border-radius: var(--border-radius);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deleteButton:hover {
+  background-color: #c53030;
+}
+
+/* Not Accepting Responses Container */
+.not-accepting-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+.not-accepting-container h2 {
+  color: var(--text-secondary);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Enhanced Confirmation Dialog - Matching AdminDashboard style */
+.confirmationOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInOverlay 0.2s ease-out forwards;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDialog {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.confirmationDialog {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff, #fafbfc);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 0;
+  max-width: 480px;
+  width: 90%;
+  max-height: 90vh;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px
+    rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.9) translateY(-20px);
+  animation: slideInDialog 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.1s;
+}
+
+.confirmationDialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+.confirmationHeader {
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.confirmationIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #fef2f2, #fef2f2);
+  border: 2px solid #fecaca;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc2626;
+}
+
+.confirmationDialog h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.025em;
+}
+
+.confirmationContent {
+  padding: 0 2rem 1.5rem;
+  text-align: center;
+}
+
+.confirmationDialog p {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.surveyTitle {
+  font-weight: 600;
+  color: var(--text-color);
+  background: var(--primary-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.warningText {
+  color: #dc2626;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: #fef2f2;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  margin: 1rem 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.confirmationButtons {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.5rem 2rem 2rem;
+  background: #fafbfc;
+  border-top: 1px solid #f1f5f9;
+}
+
+.cancelButton {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cancelButton:hover {
+  background: var(--hover-color);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cancelButton:active {
+  transform: translateY(0);
+}
+
+.deleteButton {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #dc2626, #dc2626);
+  border: 2px solid #dc2626;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+}
+
+.deleteButton:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  border-color: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
+}
+
+.deleteButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments for confirmation dialog */
+@media (max-width: 768px) {
+  .confirmationDialog {
+    margin: 1rem;
+    max-width: none;
+    width: calc(100% - 2rem);
+  }
+
+  .confirmationHeader {
+    padding: 1.5rem 1.5rem 1rem;
+  }
+
+  .confirmationContent {
+    padding: 0 1.5rem 1rem;
+  }
+
+  .confirmationButtons {
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .confirmationIcon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .confirmationDialog h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Simple Not Accepting Responses Container */
+.not-accepting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.not-accepting-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  background-color: #dbeafe;
+  border: 2px solid #3b82f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1d4ed8;
+}
+
+.not-accepting-container h2 {
+  color: #1f2937;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.not-accepting-subtitle {
+  color: #6b7280;
+  font-size: 16px;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.not-accepting-details {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+.not-accepting-details h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.not-accepting-details p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+}
+
+.survey-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.survey-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.contact-notice {
+  background-color: #eff6ff;
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  color: #1d4ed8;
+  font-size: 14px;
+}
+
+/* Simple responsive */
+@media (max-width: 768px) {
+  .not-accepting-container {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .not-accepting-container h2 {
+    font-size: 20px;
+  }
+
+  .survey-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+.lock-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.info-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Drop Zone Styles - FIXED */
+.drop-zone {
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.drop-zone.visible {
+  opacity: 1;
+  height: 40px;
+  margin: 6px 0;
+  pointer-events: all;
+}
+
+.drop-zone.active {
+  opacity: 1;
+  height: 40px;
+  margin: 6px 0;
+}
+
+.drop-zone-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 1px dashed #d1d5db;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.drop-zone.active .drop-zone-content {
+  border-color: var(--primary-color);
+  background-color: rgba(65, 105, 225, 0.05);
+}
+
+.drop-zone-line {
+  flex: 1;
+  height: 1px;
+  background-color: #d1d5db;
+  transition: background-color 0.2s ease;
+}
+
+.drop-zone.active .drop-zone-line {
+  background-color: var(--primary-color);
+}
+
+.drop-zone-text {
+  padding: 0 12px;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.drop-zone.active .drop-zone-text {
+  color: var(--primary-color);
+}
+
+/* Enhanced Question Type Item Dragging */
+.question-type-item.dragging {
+  opacity: 0.7;
+  transform: scale(0.95);
+  cursor: grabbing;
+}
+
+.question-type-item[draggable="true"] {
+  cursor: grab;
+}
+
+.question-type-item[draggable="true"]:hover {
+  cursor: grab;
+}
+
+/* Improve visual feedback during drag operations */
+.question-types-panel {
+  transition: all 0.3s ease;
+}
+
+.question-types-panel:has(.question-type-item.dragging) {
+  background-color: rgba(65, 105, 225, 0.02);
+}
+
+/* Analytics Page Styles */
+.analytics-panel {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 1rem;
+  color: var(--text-secondary);
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.analytics-header {
+  margin-bottom: 2rem;
+}
+
+.analytics-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.survey-info h2 {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+}
+
+.survey-info p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.analytics-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border-radius: 50%;
+}
+
+.summary-content h3 {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.summary-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.summary-text {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.no-responses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+}
+
+.no-responses-icon {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.no-responses h3 {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.no-responses p {
+  color: var(--text-secondary);
+  max-width: 400px;
+}
+
+.questions-analytics {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.question-analytics-card {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.question-analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background: #f8fafc;
+}
+
+.question-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.question-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.question-details h3 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.question-type {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+  background: var(--border-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.response-count {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.question-analytics-content {
+  padding: 1.5rem;
+}
+
+.no-data {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem;
+  font-style: italic;
+}
+
+/* Simplified Chart Styles */
+.simple-chart {
+  padding: 1rem;
+}
+
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.chart-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.chart-bar-item:hover {
+  background: #f8fafc;
+}
+
+.bar-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bar-label {
+  font-weight: 500;
+  color: var(--text-color);
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.bar-count {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bar-visual {
+  width: 100%;
+}
+
+.bar-track {
+  width: 100%;
+  height: 20px;
+  background-color: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.bar-progress::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Text Responses */
+.text-responses,
+.date-responses,
+.time-responses {
+  margin-top: 1.5rem;
+}
+
+.text-responses h4,
+.date-responses h4,
+.time-responses h4 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.answer-item {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.answer-item:hover {
+  background: #f1f5f9;
+  border-color: var(--primary-color);
+}
+
+.answer-item p {
+  margin: 0;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* Ranking Styles */
+.ranking-results {
+  margin-bottom: 2rem;
+}
+
+.ranking-results h4 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.ranking-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Grid Styles */
+.grid-summary {
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.simple-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.simple-grid-table th,
+.simple-grid-table td {
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.simple-grid-table th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.simple-grid-table .row-header {
+  background: #f8fafc;
+  font-weight: 500;
+  text-align: left;
+  max-width: 150px;
+  word-wrap: break-word;
+}
+
+.grid-cell {
+  font-weight: 600;
+  color: var(--primary-color);
+  background: #f0f9ff;
+}
+
+.grid-cell:hover {
+  background: #dbeafe;
+}
+
+
+
+/* Date and Time Analytics */
+.all-date-responses,
+.all-time-responses {
+  margin-top: 2rem;
+}
+
+.all-date-responses h4,
+.all-time-responses h4 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.date-value,
+.time-value {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+/* Error and Setup States */
+.setup-required,
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.setup-required h2,
+.error-message h2 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+  color: var(--text-color);
+}
+
+.setup-required p,
+.error-message p {
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin-bottom: 1rem;
+}
+
+.header-button.secondary {
+  background-color: var(--border-color);
+  color: var(--text-color);
+  margin-top: 0.5rem;
+}
+
+.unsupported-analytics {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.raw-answers {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.raw-answers h4 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .analytics-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .question-analytics-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .analytics-metrics {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .bar-label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .respondent-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .rating-item,
+  .score-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .ranking-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .grid-selection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .scale-labels {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .date-grid,
+  .time-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .bar-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .bar-label {
+    max-width: 100%;
+  }
+
+  .simple-grid-table {
+    font-size: 0.75rem;
+  }
+
+  .simple-grid-table th,
+  .simple-grid-table td {
+    padding: 0.5rem;
+  }
+}
+
+/* Update existing styles for clickable responses */
+.responses-clickable {
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.responses-clickable:hover {
+  background-color: rgba(65, 105, 225, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Scale Info for Linear Scaling */
+.scale-info {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.scale-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scale-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Date and Time Grids */
+.date-grid,
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.date-item,
+.time-item {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Rating Average Display */
+.rating-average {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.average-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  min-width: 200px;
+}
+
+.rating-icon {
+  font-size: 2rem;
+}
+
+.average-score {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.average-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Ranking List Styles */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.ranking-item:hover {
+  background: #f1f5f9;
+  border-color: var(--primary-color);
+}
+
+.rank-position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.rank-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rank-label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.rank-info {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Update Date and Time Grid Styles */
+.date-responses h4,
+.time-responses h4 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.date-grid,
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.date-item,
+.time-item {
+  background: white;
+  color: var(--text-color);
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.date-item:hover,
+.time-item:hover {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Remove old ranking styles that are no longer needed */
+.ranking-order,
+.rank-position,
+.individual-rankings {
+  display: none;
+}
+
+/* Remove old grid response styles */
+.grid-responses,
+.grid-answer,
+.grid-row-answer {
+  display: none;
+}
+
+/* Email input card styles */
+.email-input-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.email-input-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.email-input-card .question-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.email-input-card .question-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  color: var(--primary-color);
+  background-color: var(--primary-light);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.email-input-card .question-title-preview {
+  font-size: 17px;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 500;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.email-input-card .short-text-input {
+  font-size: 14px;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 400;
+  color: var(--text-color);
+  background: transparent;
+  width: 70%;
+  outline: none;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+  margin-left: 35px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.email-input-card .short-text-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+}
+
+.email-input-card .short-text-input:invalid {
+  border-color: #e53e3e;
+}
+
+.email-input-card .short-text-input:invalid:focus {
+  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.1);
+}
+
+/* Validation Error Styles */
+.validation-error {
+  border: 2px solid var(--error-color) !important;
+  background-color: var(--error-light) !important;
+  animation: shake 0.3s ease-in-out;
+}
+
+.email-input-card.validation-error {
+  border: 2px solid var(--error-color);
+  background-color: var(--error-light);
+  animation: shake 0.3s ease-in-out;
+}
+
+.question-card.validation-error {
+  border: 2px solid var(--error-color);
+  background-color: var(--error-light);
+  animation: shake 0.3s ease-in-out;
+}

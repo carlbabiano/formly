@@ -1,0 +1,262 @@
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background-color: white;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-left: 1rem;
+}
+
+/* Subtle divider between sections */
+.navbar-divider {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border-color);
+  opacity: 0.6;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.theme-toggle:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+/* Updated profile icon styling */
+.profile-icon {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.profile-icon:hover {
+  border-color: var(--primary-color);
+  background-color: #dbe7fd;
+}
+
+/* Updated profile dropdown styling */
+.profile-container {
+  position: absolute;
+  top: 100%;
+  right: 1.5rem;
+  margin-top: 0.5rem;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  color: var(--text-color);
+  display: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+  width: 250px;
+  transform-origin: top right;
+  transform: scale(0.95);
+}
+
+/* Add a triangle pointer to the dropdown */
+.profile-container::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 13px;
+  width: 14px;
+  height: 14px;
+  background-color: white;
+  border-left: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+  transform: rotate(45deg);
+}
+
+.profile-container.open {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.profile-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-color);
+}
+
+.profile-email {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: 999;
+}
+
+.overlay.open {
+  display: block;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  width: 100%;
+}
+
+.logout-button:hover {
+  background-color: #3a5fcf;
+}
+
+.btn-create-survey {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(65, 105, 225, 0.2);
+}
+
+.btn-create-survey:hover {
+  background-color: #3a5fcf;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(65, 105, 225, 0.3);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+.nav-link:hover::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 15px;
+  font-size: 16px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link.active {
+  color: #4169e1; /* Highlight color */
+  font-weight: bold;
+  border-bottom: 2px solid #4169e1; /* Underline effect */
+}
+
+.nav-link:hover {
+  color: #365bb5;
+  border-bottom: 2px solid #365bb5;
+}
+
+.logo-image {
+  height: 40px; /* Adjust as needed */
+  width: 40px; /* Match height for a perfect circle */
+  object-fit: contain; /* Ensures the entire image fits within the circle */
+}

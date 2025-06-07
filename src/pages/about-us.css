@@ -1,0 +1,135 @@
+.about-us-page {
+    min-height: 100vh;
+    background-color: #f8fafc;
+    background-image: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+  }
+  
+  .about-us-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .page-header {
+    margin-bottom: 3rem;
+  }
+  
+  .back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+    width: fit-content;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+  }
+  
+  .back-button:hover {
+    background-color: var(--hover-color);
+    color: var(--primary-color);
+  }
+  
+  .page-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .content-section {
+    background-color: white;
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .hero-section {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-text {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .info-card {
+    background-color: #f8fafc;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .card-text {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .values-list {
+    color: #666;
+    line-height: 1.8;
+    padding-left: 1.2rem;
+  }
+  
+  .values-list li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact-info p {
+    margin-bottom: 0.8rem;
+    color: #666;
+  }
+  
+  .contact-info strong {
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .about-us-container {
+      padding: 1rem;
+    }
+  
+    .page-title {
+      font-size: 2rem;
+    }
+  
+    .content-section {
+      padding: 2rem;
+    }
+  
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  

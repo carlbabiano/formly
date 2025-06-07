@@ -1,0 +1,471 @@
+:root {
+  --primary-color: #4169e1;
+  --primary-light: #e8f0fe;
+  --border-color: #e0e0e0;
+  --text-color: #333;
+  --text-secondary: #666;
+  --background-color: #f8fafc;
+  --card-background: #fff;
+  --hover-color: #f5f5f5;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --error-color: #e53e3e;
+  --success-color: #38a169;
+  --warning-color: #f59e0b;
+}
+
+/* Remove all global styling */
+/* Only style the specific components */
+
+/* Make sure the login container is properly styled */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: var(--card-background);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.login-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.login-container h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  background-color: white;
+  color: var(--text-color);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+/* Add the glow effect for empty required fields after the input::placeholder rule */
+.form-group.input-error input {
+  border-color: var(--error-color);
+  box-shadow: 0 0 5px rgba(229, 62, 62, 0.2);
+  animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 3px rgba(229, 62, 62, 0.15); /* Very subtle glow */
+  }
+  100% {
+    box-shadow: 0 0 7px rgba(229, 62, 62, 0.25); /* Still subtle but visible */
+  }
+}
+
+/* Override the default focus style for glowing inputs */
+.form-group.input-error input:focus {
+  outline: none;
+  border-color: var(--error-color);
+  box-shadow: 0 0 5px rgba(229, 62, 62, 0.3);
+}
+
+/* Password actions container */
+.password-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+/* Show Password Container */
+.show-password-container {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+/* Checkbox Wrapper */
+.checkbox-wrapper {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 8px; /* Space between the checkbox and the label */
+  cursor: pointer;
+  position: relative; /* Ensure proper positioning */
+}
+
+/* Checkbox Input (Hidden) */
+.checkbox-input {
+  display: none; /* Hide the default checkbox */
+}
+
+/* Custom Checkbox */
+.checkbox-custom {
+  width: 16px; /* Set the desired width */
+  height: 16px; /* Set the desired height */
+  border: 1px solid var(--primary-color); /* Add a border */
+  border-radius: 3px; /* Slightly rounded corners */
+  background-color: white; /* Set the background color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease; /* Add a smooth transition */
+  position: relative; /* Make it relative for the checkmark */
+}
+
+/* Custom Checkbox Checked State */
+.checkbox-input:checked + .checkbox-custom {
+  background-color: var(--primary-color); /* Change background color when checked */
+  border-color: var(--primary-color); /* Change border color when checked */
+}
+
+.checkbox-input:checked + .checkbox-custom::before {
+  content: "✔"; /* Add a checkmark */
+  color: white; /* Set the checkmark color */
+  font-size: 12px; /* Adjust the font size for the checkmark */
+  font-weight: bold; /* Make the checkmark bold */
+  position: absolute; /* Position it inside the checkbox */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for perfect centering */
+}
+
+/* Checkbox label */
+.checkbox-label {
+  font-size: 0.9rem; /* Set the font size for the label */
+  font-weight: 500;
+  color: var(--text-color); /* Set the label color */
+  cursor: pointer; /* Add a pointer cursor */
+}
+
+/* Forgot password container */
+.forgot-password-container {
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+.forgot-password-link {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+/* Remove the old password-options styling */
+.password-options {
+  display: none;
+}
+
+.show-password {
+  display: none;
+}
+
+.login-button {
+  padding: 0.75rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 4px rgba(65, 105, 225, 0.2);
+}
+
+.login-button:hover {
+  background-color: #3a5fcf;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(65, 105, 225, 0.3);
+}
+
+.login-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.response-message {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  background-color: rgba(229, 62, 62, 0.1);
+  color: var(--error-color);
+}
+
+.response-message.success {
+  background-color: rgba(56, 161, 105, 0.1);
+  color: var(--success-color);
+}
+
+/* Style for validation error message */
+.validation-error {
+  color: var(--error-color);
+  background-color: rgba(229, 62, 62, 0.1);
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.register-button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.register-button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+/* Add a decorative element at the top of the form */
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary-color), #6a8cff);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* Update the Google Sign-In Button to match other buttons */
+.google-signin-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  color: #555;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Make it full width like other buttons */
+  margin: 0 0 1.5rem; /* Add proper spacing */
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.google-signin-button:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.google-signin-button:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* Style the Google logo */
+.google-logo {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px; /* Add space between logo and text */
+}
+
+/* Divider with text styling */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 0 0 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.divider span {
+  margin: 0 10px;
+  text-transform: lowercase;
+  font-weight: 500;
+}
+
+/* Login link styling */
+.login-link {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.login-text {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.login-text:hover {
+  text-decoration: underline;
+}
+
+/* Add the email-error styling to display the error message properly */
+.email-error {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* Add these styles to your existing login.css file */
+
+/* OTP input styling */
+.otp-input {
+  letter-spacing: 0.5em;
+  text-align: center;
+}
+
+/* Text button for resend code */
+.text-button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.text-button:hover {
+  color: #3a5fcf;
+}
+
+.text-button:disabled {
+  color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/* Password strength indicator */
+.password-strength {
+  margin-top: 8px;
+}
+
+.strength-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+}
+
+.strength-label {
+  color: var(--text-secondary);
+}
+
+.strength-bar-container {
+  height: 4px;
+  background-color: #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.strength-bar {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Loading message */
+.loading-message {
+  padding: 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* Rate limit specific styles */
+.rate-limit-container {
+  text-align: center;
+}
+
+.rate-limit-info {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--warning-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.rate-limit-info p {
+  margin: 0;
+}
+
+/* Attempts remaining info */
+.attempts-remaining {
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--warning-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.attempts-remaining p {
+  margin: 0;
+  font-weight: 500;
+}
