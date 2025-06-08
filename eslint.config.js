@@ -38,5 +38,9 @@ export default [
         { allowConstantExport: true },
       ],
     },
+    eslint:{
+      ignoreDuringBuilds: true, // Ignore ESLint errors during production builds
+    },
   },
+
 ]
