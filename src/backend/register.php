@@ -47,10 +47,10 @@ try {
     ]);
 
     // Generate a JWT token
-    $userId = $pdo->lastInsertId(); // Get the ID of the newly inserted user
+    $baseUrl = getenv('VITE_BACKEND_URL') ?: 'http://localhost';
     $payload = [
-        "iss" => "http://localhost",
-        "aud" => "http://localhost",
+        "iss" => $baseUrl,
+        "aud" => $baseUrl,
         "iat" => time(),
         "exp" => time() + (60 * 60),
         "user_id" => $userId,
