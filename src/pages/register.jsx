@@ -190,7 +190,7 @@ const Register = () => {
 
     // Submit the registration form
     try {
-      const response = await axios.post(`${process.env.BACKEND_URL}/register.php`, {
+      const response = await axios.post(`${process.env.BACKEND_URL}/src/backend/register.php`, {
         email: formData.email,
         password: formData.password,
         firstName: formData.firstName,
