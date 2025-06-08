@@ -1,8 +1,8 @@
 <?php
-$host = "metro.proxy.rlwy.net"; // Hostname from Railway
+$host = "mysql.railway.internal"; // Hostname from Railway
 $dbname = "railway"; // Database name from Railway
 $charset = "utf8mb4";
-$port = 43641; // Port number from Railway
+$port = 3306; // Port number from Railway
 $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
 $db_username = "root"; // Username from Railway
 $db_password = "sVtDdRiIbKntJSbsZvcBOuacSgjlysjt"; // Replace with the actual password from Railway
