@@ -65,7 +65,7 @@ try {
     } else {
         echo json_encode([
             'success' => false,
-            'message' => 'Survey not found.',
+            'message' => 'Publish the survey first.',
         ]);
     }
 } catch (PDOException $e) {

@@ -246,16 +246,18 @@ function AnswerPage() {
     })
   }
 
-  const handleSubmit = async () => {
-    if (isSubmitting) return
-
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent page refresh
+  
+    if (isSubmitting) return;
+  
     if (!validateForm()) {
-      alert("Please fill in all required fields before submitting.")
-      return
+      alert("Please fill in all required fields before submitting.");
+      return;
     }
-
-    setIsSubmitting(true)
-
+  
+    setIsSubmitting(true);
+  
     try {
       const response = await fetch("http://localhost/formlydb/formly/src/backend/submitSurvey.php", {
         method: "POST",
@@ -265,25 +267,25 @@ function AnswerPage() {
           answers,
           respondentEmail: respondentEmail || "anonymous@example.com",
         }),
-      })
-      const data = await response.json()
-
+      });
+      const data = await response.json();
+  
       if (data.success) {
-        alert("Survey submitted successfully!")
-        removeSessionData(`survey_${surveyId}_answers`)
-        setAnswers({})
-        setRespondentEmail("")
-        setValidationErrors({})
+        alert("Survey submitted successfully!");
+        removeSessionData(`survey_${surveyId}_answers`);
+        setAnswers({});
+        setRespondentEmail("");
+        setValidationErrors({});
       } else {
-        alert(`Failed to submit survey: ${data.message}`)
+        alert(`Failed to submit survey: ${data.message}`);
       }
     } catch (err) {
-      console.error("Error submitting survey:", err)
-      alert("An error occurred while submitting the survey.")
+      console.error("Error submitting survey:", err);
+      alert("An error occurred while submitting the survey.");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const handleGridAnswerChange = (questionId, rowIndex, colIndex) => {
     setAnswers((prev) => {
@@ -1087,6 +1089,7 @@ function AnswerPage() {
           </div>
 
           <button
+            type="button" // Prevent default form submission behavior
             className={`publish-button ${isSubmitting ? "submitting" : ""}`}
             onClick={handleSubmit}
             disabled={isSubmitting}

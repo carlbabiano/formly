@@ -57,7 +57,7 @@ body {
   background-color: white;
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--shadow);
-  position: sticky; /* Change from sticky to fixed */
+  position: fixed; 
   top: 0;
   left: 0;
   right: 0;
@@ -113,6 +113,7 @@ body {
 
 /* Question card styles */
 .question-card {
+  padding-top: 20px;
   background-color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(230, 230, 230, 0.7);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -261,45 +262,7 @@ body {
   margin-bottom: 20px;
 }
 
-.icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 4px;
-  color: var(--primary-color);
-  margin-right: 6px;
-  transition: all 0.2s ease;
-}
 
-.icon-button:hover {
-  background-color: rgba(65, 105, 225, 0.1);
-}
-
-.icon-button.required-badge {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-}
-
-.icon-button.required-badge.active {
-  color: #e53e3e; /* Red color when required is active */
-  background-color: rgba(229, 62, 62, 0.1); /* Light red background */
-}
-
-.icon-button.required-badge:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
 
 .question-count-badge {
   display: flex;
@@ -366,27 +329,21 @@ body {
   align-items: flex-start;
   gap: 16px;
   padding: 24px;
+  margin-top: var(--header-height);
 }
 
-/* Enhance the panels with better background and shadow */
-.question-types-panel,
-.survey-questions-panel {
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(230, 230, 230, 0.7);
-}
 
 /* Add a subtle gradient to the question types panel */
 .question-types-panel {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   background-color: var(--card-background);
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 24px;
   display: flex;
   flex-direction: column;
   width: 300px;
   flex-shrink: 0;
-  position: sticky;
+  position: fixed;
   top: 84px;
   max-height: calc(100vh - 109px);
   align-self: flex-start;
@@ -394,13 +351,13 @@ body {
   border: 1px solid var(--border-color);
   overflow-y: auto;
   z-index: 100;
-  position: sticky;
+  margin-left: 130px;
 }
 
 .survey-questions-panel {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   background-color: var(--card-background);
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 24px;
   flex: 1;
   max-width: 800px;
@@ -537,7 +494,7 @@ h2 {
 .question-actions {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 10px;
   display: flex;
   gap: 8px;
 }
@@ -545,16 +502,14 @@ h2 {
 /* Drag handle styles */
 .drag-handle {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  left: 50%;
+  top: 10px;
   cursor: grab;
   color: var(--text-secondary);
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
   border-radius: 4px;
   background-color: transparent;
   transition: all 0.2s ease;
@@ -569,66 +524,42 @@ h2 {
   cursor: grabbing;
 }
 
-/* Add these new styles for the vertical action buttons */
-.question-actions-vertical {
-  position: absolute;
-  top: 50%; /* Center vertically relative to the question card */
-  right: -500px; /* Move it outside the right edge of the question card */
-  transform: translateY(-50%); /* Adjust for vertical centering */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  background-color: white;
-  padding: 12px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 2000;
-  border: 1px solid var(--border-color);
-}
-
-/* Show the actions when the class is visible OR when the parent card is selected */
-.question-actions-vertical.visible,
-.question-card.selected .question-actions-vertical {
-  opacity: 1;
-  visibility: visible;
-  right: 16px; /* Position inside the card when visible */
-  transform: translateY(-50%) translateX(190%);
-}
-
-/* Improve the icon buttons in the vertical actions */
-.question-actions-vertical .icon-button {
-  width: 36px;
-  height: 36px;
+.required-badge {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background-color: #f5f5f5;
-  color: var(--text-secondary);
-  transition: all 0.2s ease;
-  margin: 0;
-  padding: 0;
+  gap: 6px;
+  background-color: var(--danger-light); /* Light red background */
+  color: var(--primary-color); /* Blue text */
+  padding: 8px 12px; /* Adjust padding */
+  font-size: 14px; /* Font size */
+  font-weight: 500; /* Slightly bold text */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.2s ease; /* Smooth hover effect */
 }
 
-.question-actions-vertical .icon-button:hover {
-  background-color: #e8e8e8;
-  color: var(--primary-color);
-  transform: scale(1.05);
+.required-badge.active {
+ color: #ef4444 ;
+  
 }
 
-.question-actions-vertical .icon-button.required-badge {
-  background-color: #f5f5f5;
+
+.Delete-question-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--danger-light); /* Light red background */
+  color: #ef4444;
+  padding: 8px 12px; /* Adjust padding */
+  font-size: 14px; /* Font size */
+  font-weight: 500; /* Slightly bold text */
+  cursor: pointer; /* Pointer cursor */
+  border-radius: var(--border-radius); /* Rounded corners */
+  border: 1px solid var(--danger-color); /* Red border */
 }
 
-.question-actions-vertical .icon-button.required-badge.active {
-  color: #e53e3e;
-  background-color: rgba(229, 62, 62, 0.1);
-}
 
-/* Update the question card to have relative positioning and padding for the action buttons */
 
 /* Fix position of question contents */
 .multiple-choice-question,
@@ -684,9 +615,7 @@ h2 {
   border-radius: 8px;
 }
 
-.required-badge {
-  display: none;
-}
+
 
 .delete-option {
   background: none;
@@ -2016,6 +1945,7 @@ select {
   width: fit-content;
   align-self: flex-start;
   flex-shrink: 0;
+  position: fixed;
 }
 
 .back-button:hover {

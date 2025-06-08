@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *'); // Allow requests from any origin
+header('Access-Control-Allow-Origin: *'); // Allow requests only from your frontend
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); // Allow specific HTTP methods
 header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allow specific headers
 
@@ -9,7 +9,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Include the database connection file
-require_once 'db.php';
-
-// Rest of your code...

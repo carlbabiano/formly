@@ -33,7 +33,8 @@ import {
   Power,
   PowerOff,
   AlertTriangle,
-  BarChart3
+  BarChart3,
+  GripHorizontal,
 } from "lucide-react"
 import "./builderpage.css"
 import "react-datepicker/dist/react-datepicker.css"
@@ -1626,6 +1627,15 @@ const handleDropZoneDrop = (e, position) => {
                         }
                       }}
                     >
+                      {!isPreviewMode && (
+                          <div
+                            className="drag-handle"
+                            draggable={true}
+                            onDragStart={() => handleDragStart(question.id)}
+                          >
+                            <GripHorizontal size={18} />
+                          </div>
+                        )}
                     {/*multiple choice question*/}
                     {question.type === "multiple-choice" ? (
                       <div className="multiple-choice-question">
@@ -1657,20 +1667,34 @@ const handleDropZoneDrop = (e, position) => {
                                 rows={1}
                                 style={{ overflow: "hidden", resize: "none" }} // Prevent resizing and hide scrollbar
                               />
-                              {question.required && <span className="required-indicator">*</span>} {/* Asterisk beside the question */}
                             </div>
                       
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
                         <div className="options-list">
                           {question.options?.map((option, index) => (
                             <div key={index} className="option-item">
@@ -1763,30 +1787,7 @@ const handleDropZoneDrop = (e, position) => {
                           )}
                         </div>
 
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "short-text" ? (
                       <div className="short-text-question">
@@ -1820,15 +1821,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
                         <input
                           className="short-text-input"
                           value={question.shortText || ""} // Bind to the specific question's shortText property
@@ -1846,30 +1862,7 @@ const handleDropZoneDrop = (e, position) => {
                           style={{ overflow: "hidden", resize: "none" }} // Prevent resizing and hide scrollbar
                           disabled={!isPreviewMode} // Disable input when not in preview mode
                         />
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "long-text" ? (
                       <div className="long-text-question">
@@ -1903,15 +1896,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
                         <textarea
                           className="long-text-input"
                           value={question.longText || ""} // Bind to the specific question's longText property
@@ -1934,30 +1942,7 @@ const handleDropZoneDrop = (e, position) => {
                           style={{ overflow: "hidden" }} // Prevent scrollbar
                           disabled={!isPreviewMode} // Disable input when not in preview mode
                         />
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "checkbox" ? (
                       <div className="checkbox-question">
@@ -1991,15 +1976,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
                         <div className="options-list">
                           {question.options?.map((option, index) => (
                             <div key={index} className="option-item">
@@ -2094,30 +2094,7 @@ const handleDropZoneDrop = (e, position) => {
                             </button>
                           )}
                         </div>
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "rating" ? (
                       <div className="rating-question">
@@ -2147,15 +2124,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
 
                         {!isPreviewMode ? (
                           <div className="rating-settings">
@@ -2236,31 +2228,7 @@ const handleDropZoneDrop = (e, position) => {
                           </div>
                         )}
 
-                        {/* Add Question Actions */}
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() =>
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                       
                       </div>
                     ) : question.type === "dropdown" ? (
                       <div className="dropdown-question">
@@ -2294,15 +2262,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                       
 
                         {isPreviewMode ? (
                           <select className="dropdown-select" onChange={(e) => handleDropdownChange(e, question.id)}>
@@ -2379,31 +2362,7 @@ const handleDropZoneDrop = (e, position) => {
                           </div>
                         )}
 
-                        {/* Add Question Actions */}
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() =>
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "linear-scaling" ? (
                       <div className="linear-scaling-question">
@@ -2437,15 +2396,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
 
                         {/* Edit Mode: Min/Max Settings */}
                         {!isPreviewMode ? (
@@ -2551,30 +2525,7 @@ const handleDropZoneDrop = (e, position) => {
                           </div>
                         )}
 
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "date" ? (
                       <div className="date-question">
@@ -2608,15 +2559,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
                         <div className="date-input-container">
                           <ReactDatePicker
                             selected={question.selectedDate}
@@ -2641,31 +2607,7 @@ const handleDropZoneDrop = (e, position) => {
                           <Calendar size={18} />
                         </div>
 
-                        {/* Question Actions */}
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "time" ? (
                       <div className="time-question">
@@ -2699,15 +2641,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
                         <div className="time-input-container">
                           <ReactDatePicker
                             selected={question.selectedTime}
@@ -2736,30 +2693,7 @@ const handleDropZoneDrop = (e, position) => {
                           />
                           <Clock size={20} className="time-icon" />
                         </div>
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "yes-no" ? (
                       // Yes/No Question Type
@@ -2795,15 +2729,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
 
                         <div className="yes-no-options">
                           <div className="yes-no-option">
@@ -2868,30 +2817,7 @@ const handleDropZoneDrop = (e, position) => {
                           </div>
                         </div>
 
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "ranking" ? (
                       // Ranking Question Type
@@ -2926,15 +2852,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
 
                         <div className="ranking-items">
                           {question.options?.map((item, index) => (
@@ -3013,32 +2954,8 @@ const handleDropZoneDrop = (e, position) => {
                             <p>Drag and drop items to rank them in order of preference.</p>
                           </div>
                         )}
-
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
                       </div>
+    
                     ) : question.type === "multi-grid" ? (
                       // Multi Grid Question Type
                       <div className="grid-question multi-grid-question">
@@ -3073,15 +2990,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
 
                         {isPreviewMode ? (
                           <div className="grid-container">
@@ -3196,30 +3128,7 @@ const handleDropZoneDrop = (e, position) => {
                           </div>
                         )}
 
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : question.type === "checkbox-grid" ? (
                       // Checkbox Grid Question Type
@@ -3255,15 +3164,30 @@ const handleDropZoneDrop = (e, position) => {
                             </div>
                           )}
                         </div>
+                        {/* Required Button */}
                         {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
+                          <div className="question-actions">
+                            <button
+                              className={`required-badge ${question.required ? "active" : ""}`}
+                              onClick={() => {
+                                setQuestions(
+                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
+                                )
+                              }}
+                              title={question.required ? "Required" : "Optional"}
+                            >
+                              <BadgeAlert size={18} />
+                            </button>
+                            <button
+                              className="Delete-question-button"
+                              onClick={() => handleDeleteQuestion(question.id)}
+                              title="Delete question"
+                            >
+                              <Trash2 size={18} />
+                            </button>
                           </div>
                         )}
+                        
 
                         {isPreviewMode ? (
                           <div className="grid-container">
@@ -3366,679 +3290,26 @@ const handleDropZoneDrop = (e, position) => {
                           </div>
                         )}
 
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ) : question.type === "yes-no" ? (
-                      // Yes/No Question Type
-                      <div className="yes-no-question">
-                        <div className="question-header">
-                          <div className="question-icon">
-                            <ToggleLeft size={18} />
-                          </div>
-                          {isPreviewMode ? (
-                            <div className="question-title-preview">
-                              {question.title || "Untitled Question"}
-                              {question.required && <span className="required-indicator">*</span>}
-                            </div>
-                          ) : (
-                            <div className="question-title-container">
-                              <textarea
-                                className="question-title"
-                                value={question.title}
-                                placeholder="Yes/No question"
-                                onChange={(e) => {
-                                  setQuestions(
-                                    questions.map((q) => (q.id === question.id ? { ...q, title: e.target.value } : q)),
-                                  )
-                                }}
-                                onInput={(e) => {
-                                  e.target.style.height = "auto"
-                                  e.target.style.height = `${e.target.scrollHeight}px`
-                                }}
-                                rows={1}
-                                style={{ overflow: "hidden", resize: "none" }}
-                              />
-                              {question.required && <span className="required-indicator">*</span>}
-                            </div>
-                          )}
-                        </div>
-                        {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
-                          </div>
-                        )}
-
-                        <div className="yes-no-options">
-                          <div className="yes-no-option">
-                            <input
-                              type="radio"
-                              id={`yes-${question.id}`}
-                              name={`yes-no-${question.id}`}
-                              checked={question.answer === true}
-                              onChange={() => {
-                                if (isPreviewMode) {
-                                  handleYesNoChange(question.id, true)
-                                }
-                              }}
-                              disabled={!isPreviewMode}
-                              style={{
-                                cursor: isPreviewMode ? "pointer" : "default",
-                                width: "18px",
-                                height: "18px",
-                                backgroundColor: "white",
-                                appearance: "none",
-                                border: question.answer === true ? "4px solid var(--primary-color)" : "1px solid #ccc",
-                                borderRadius: "50%",
-                                outline: "none",
-                              }}
-                            />
-                            <label htmlFor={`yes-${question.id}`} className="yes-no-label">
-                              <div className="yes-no-icon yes">
-                                <CheckCircle2 size={18} />
-                              </div>
-                              Yes
-                            </label>
-                          </div>
-                          <div className="yes-no-option">
-                            <input
-                              type="radio"
-                              id={`no-${question.id}`}
-                              name={`yes-no-${question.id}`}
-                              checked={question.answer === false}
-                              onChange={() => {
-                                if (isPreviewMode) {
-                                  handleYesNoChange(question.id, false)
-                                }
-                              }}
-                              disabled={!isPreviewMode}
-                              style={{
-                                cursor: isPreviewMode ? "pointer" : "default",
-                                width: "18px",
-                                height: "18px",
-                                backgroundColor: "white",
-                                appearance: "none",
-                                border: question.answer === false ? "4px solid var(--primary-color)" : "1px solid #ccc",
-                                borderRadius: "50%",
-                                outline: "none",
-                              }}
-                            />
-                            <label htmlFor={`no-${question.id}`} className="yes-no-label">
-                              <div className="yes-no-icon no">
-                                <XCircle size={18} />
-                              </div>
-                              No
-                            </label>
-                          </div>
-                        </div>
-
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ) : question.type === "ranking" ? (
-                      // Ranking Question Type
-                      <div className="ranking-question">
-                        <div className="question-header">
-                          <div className="question-icon">
-                            <MoveVertical size={18} />
-                          </div>
-                          {isPreviewMode ? (
-                            <div className="question-title-preview">
-                              {question.title || "Untitled Question"}
-                              {question.required && <span className="required-indicator">*</span>}
-                            </div>
-                          ) : (
-                            <div className="question-title-container">
-                              <textarea
-                                className="question-title"
-                                value={question.title}
-                                placeholder="Ranking question"
-                                onChange={(e) => {
-                                  setQuestions(
-                                    questions.map((q) => (q.id === question.id ? { ...q, title: e.target.value } : q)),
-                                  )
-                                }}
-                                onInput={(e) => {
-                                  e.target.style.height = "auto"
-                                  e.target.style.height = `${e.target.scrollHeight}px`
-                                }}
-                                rows={1}
-                                style={{ overflow: "hidden", resize: "none" }}
-                              />
-                            </div>
-                          )}
-                        </div>
-                        {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
-                          </div>
-                        )}
-
-                        <div className="ranking-items">
-                          {question.options?.map((item, index) => (
-                            <div
-                              key={index}
-                              className={`ranking-item ${isPreviewMode ? "preview" : ""}`}
-                              draggable={isPreviewMode}
-                              onDragStart={(e) => isPreviewMode && handleRankingDragStart(e, question.id, index)}
-                              onDragOver={(e) => isPreviewMode && handleRankingDragOver(e)}
-                              onDrop={(e) => isPreviewMode && handleRankingDrop(e, question.id, index)}
-                            >
-                              <div className="ranking-item-number">{index + 1}</div>
-                              {isPreviewMode ? (
-                                <div className="ranking-item-text">
-                                  {item || `Item ${index + 1}`} {/* Always show placeholder text in preview mode */}
-                                </div>
-                              ) : (
-                                <textarea
-                                  className="ranking-item-input"
-                                  value={item}
-                                  onChange={(e) => {
-                                    setQuestions(
-                                      questions.map((q) =>
-                                        q.id === question.id
-                                          ? {
-                                              ...q,
-                                              options: q.options.map((opt, i) => (i === index ? e.target.value : opt)),
-                                            }
-                                          : q,
-                                      ),
-                                    )
-                                  }}
-                                  onInput={(e) => {
-                                    e.target.style.height = "auto"
-                                    e.target.style.height = `${e.target.scrollHeight}px`
-                                  }}
-                                  placeholder={`Item ${index + 1}`} // Always show placeholder text
-                                  rows={1}
-                                  style={{
-                                    overflow: "hidden",
-                                    resize: "none",
-                                    color: item ? "inherit" : "var(--text-secondary)", // Greyed-out text for empty items
-                                  }}
-                                />
-                              )}
-                              {!isPreviewMode && (
-                                <button
-                                  className="delete-option"
-                                  onClick={() => handleDeleteOption(question.id, index)}
-                                >
-                                  <X size={16} />
-                                </button>
-                              )}
-                            </div>
-                          ))}
-                          {!isPreviewMode && (
-                            <button
-                              className="add-option-button"
-                              onClick={() =>
-                                setQuestions(
-                                  questions.map((q) =>
-                                    q.id === question.id
-                                      ? { ...q, options: [...q.options, ""] } // Add an empty option for new items
-                                      : q,
-                                  ),
-                                )
-                              }
-                            >
-                              <Plus size={16} /> Add Item
-                            </button>
-                          )}
-                        </div>
-
-                        {isPreviewMode && (
-                          <div className="ranking-instructions">
-                            <p>Drag and drop items to rank them in order of preference.</p>
-                          </div>
-                        )}
-
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ) : question.type === "multi-grid" ? (
-                      // Multi Grid Question Type
-                      <div className="grid-question multi-grid-question">
-                        <div className="question-header">
-                          <div className="question-icon">
-                            <Grid size={18} />
-                          </div>
-                          {isPreviewMode ? (
-                            <div className="question-title-preview">
-                              {question.title || "Untitled Question"}
-                              {question.required && <span className="required-indicator">*</span>}
-                            </div>
-                          ) : (
-                            <div className="question-title-container">
-                              <textarea
-                                className="question-title"
-                                value={question.title}
-                                placeholder="Multi grid question"
-                                onChange={(e) => {
-                                  setQuestions(
-                                    questions.map((q) => (q.id === question.id ? { ...q, title: e.target.value } : q)),
-                                  )
-                                }}
-                                onInput={(e) => {
-                                  e.target.style.height = "auto"
-                                  e.target.style.height = `${e.target.scrollHeight}px`
-                                }}
-                                rows={1}
-                                style={{ overflow: "hidden", resize: "none" }}
-                              />
-                              {question.required && <span className="required-indicator">*</span>}
-                            </div>
-                          )}
-                        </div>
-                        {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
-                          </div>
-                        )}
-
-                        {isPreviewMode ? (
-                          <div className="grid-container">
-                            <table className="grid-table">
-                              <thead>
-                                <tr>
-                                  <th></th>
-                                  {question.columns?.map((column, colIndex) => (
-                                    <th key={colIndex}>
-                                      {column || `Column ${colIndex + 1}`} {/* Show placeholder for empty columns */}
-                                    </th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {question.rows?.map((row, rowIndex) => (
-                                  <tr key={rowIndex}>
-                                    <td>
-                                      {row || `Row ${rowIndex + 1}`} {/* Show placeholder for empty rows */}
-                                    </td>
-                                    {question.columns?.map((_, colIndex) => (
-                                      <td key={colIndex}>
-                                        <input
-                                          type="radio"
-                                          name={`grid-${question.id}-row-${rowIndex}`}
-                                          checked={question.answers?.[`row_${rowIndex}`] === colIndex}
-                                          onChange={() => handleGridAnswerChange(question.id, rowIndex, colIndex)}
-                                          style={{
-                                            cursor: "pointer",
-                                            width: "18px",
-                                            height: "18px",
-                                            backgroundColor: "white",
-                                            appearance: "none",
-                                            border:
-                                              question.answers?.[`row_${rowIndex}`] === colIndex
-                                                ? "4px solid var(--primary-color)"
-                                                : "1px solid #ccc",
-                                            borderRadius: "50%",
-                                            outline: "none",
-                                          }}
-                                        />
-                                      </td>
-                                    ))}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        ) : (
-                          <div className="grid-editor">
-                            <div className="grid-section">
-                              <div className="grid-section-header">Columns</div>
-                              <div className="grid-items-list">
-                                {question.columns?.map((column, colIndex) => (
-                                  <div key={colIndex} className="grid-item">
-                                    <input
-                                      type="text"
-                                      className="grid-item-input"
-                                      value={column || ""}
-                                      onChange={(e) => handleColumnTextChange(question.id, colIndex, e.target.value)}
-                                      placeholder={`Column ${colIndex + 1}`} // Placeholder for empty columns
-                                      style={{
-                                        color: column ? "inherit" : "grey", // Grey out empty columns in editor mode
-                                      }}
-                                    />
-                                    {question.columns.length > 1 && (
-                                      <button
-                                        className="delete-grid-item"
-                                        onClick={() => handleDeleteColumn(question.id, colIndex)}
-                                      >
-                                        <X size={14} />
-                                      </button>
-                                    )}
-                                  </div>
-                                ))}
-                                <button className="add-option-button" onClick={() => handleAddColumn(question.id)}>
-                                  <Plus size={16} /> Add Column
-                                </button>
-                              </div>
-                            </div>
-
-                            <div className="grid-section">
-                              <div className="grid-section-header">Rows</div>
-                              <div className="grid-items-list">
-                                {question.rows?.map((row, rowIndex) => (
-                                  <div key={rowIndex} className="grid-item">
-                                    <input
-                                      type="text"
-                                      className="grid-item-input"
-                                      value={row || ""}
-                                      onChange={(e) => handleRowTextChange(question.id, rowIndex, e.target.value)}
-                                      placeholder={`Row ${rowIndex + 1}`} // Placeholder for empty rows
-                                      style={{
-                                        color: row ? "inherit" : "grey", // Grey out empty rows in editor mode
-                                      }}
-                                    />
-                                    {question.rows.length > 1 && (
-                                      <button
-                                        className="delete-grid-item"
-                                        onClick={() => handleDeleteRow(question.id, rowIndex)}
-                                      >
-                                        <X size={14} />
-                                      </button>
-                                    )}
-                                  </div>
-                                ))}
-                                <button className="add-option-button" onClick={() => handleAddRow(question.id)}>
-                                  <Plus size={16} /> Add Row
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ) : question.type === "checkbox-grid" ? (
-                      // Checkbox Grid Question Type
-                      <div className="grid-question checkbox-grid-question">
-                        <div className="question-header">
-                          <div className="question-icon">
-                            <Grid size={18} />
-                          </div>
-                          {isPreviewMode ? (
-                            <div className="question-title-preview">
-                              {question.title || "Untitled Question"}
-                              {question.required && <span className="required-indicator">*</span>}
-                            </div>
-                          ) : (
-                            <div className="question-title-container">
-                              <textarea
-                                className="question-title"
-                                value={question.title}
-                                placeholder="Checkbox grid question"
-                                onChange={(e) => {
-                                  setQuestions(
-                                    questions.map((q) => (q.id === question.id ? { ...q, title: e.target.value } : q)),
-                                  )
-                                }}
-                                onInput={(e) => {
-                                  e.target.style.height = "auto"
-                                  e.target.style.height = `${e.target.scrollHeight}px`
-                                }}
-                                rows={1}
-                                style={{ overflow: "hidden", resize: "none" }}
-                              />
-                              {question.required && <span className="required-indicator">*</span>}
-                            </div>
-                          )}
-                        </div>
-                        {!isPreviewMode && (
-                          <div
-                            className="drag-handle"
-                            draggable={true}
-                            onDragStart={() => handleDragStart(question.id)}
-                          >
-                            <Grip size={18} />
-                          </div>
-                        )}
-
-                        {isPreviewMode ? (
-                          <div className="grid-container">
-                            <table className="grid-table">
-                              <thead>
-                                <tr>
-                                  <th></th>
-                                  {question.columns?.map((column, colIndex) => (
-                                    <th key={colIndex}>{column || `Column ${colIndex + 1}`}</th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {question.rows?.map((row, rowIndex) => (
-                                  <tr key={rowIndex}>
-                                    <td>{row || `Row ${rowIndex + 1}`}</td>
-                                    {question.columns?.map((_, colIndex) => (
-                                      <td key={colIndex}>
-                                        <label className="checkbox-wrapper">
-                                          <input
-                                            type="checkbox"
-                                            checked={!!question.answers?.[`row_${rowIndex}_col_${colIndex}`]}
-                                            onChange={() =>
-                                              handleCheckboxGridAnswerChange(question.id, rowIndex, colIndex)
-                                            }
-                                            className="grid-checkbox"
-                                          />
-                                          <span className="checkbox-custom"></span>
-                                        </label>
-                                      </td>
-                                    ))}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        ) : (
-                          <div className="grid-editor">
-                            <div className="grid-section">
-                              <div className="grid-section-header">Columns</div>
-                              <div className="grid-items-list">
-                                {question.columns?.map((column, colIndex) => (
-                                  <div key={colIndex} className="grid-item">
-                                    <input
-                                      type="text"
-                                      className="grid-item-input"
-                                      value={column || ""}
-                                      onChange={(e) => handleColumnTextChange(question.id, colIndex, e.target.value)}
-                                      placeholder={`Column ${colIndex + 1}`} // Placeholder for empty columns
-                                      style={{
-                                        color: column ? "inherit" : "grey", // Grey out empty columns in editor mode
-                                      }}
-                                    />
-                                    {question.columns.length > 1 && (
-                                      <button
-                                        className="delete-grid-item"
-                                        onClick={() => handleDeleteColumn(question.id, colIndex)}
-                                      >
-                                        <X size={14} />
-                                      </button>
-                                    )}
-                                  </div>
-                                ))}
-                                <button className="add-option-button" onClick={() => handleAddColumn(question.id)}>
-                                  <Plus size={16} /> Add Column
-                                </button>
-                              </div>
-                            </div>
-
-                            <div className="grid-section">
-                              <div className="grid-section-header">Rows</div>
-                              <div className="grid-items-list">
-                                {question.rows?.map((row, rowIndex) => (
-                                  <div key={rowIndex} className="grid-item">
-                                    <input
-                                      type="text"
-                                      className="grid-item-input"
-                                      value={row || ""}
-                                      onChange={(e) => handleRowTextChange(question.id, rowIndex, e.target.value)}
-                                      placeholder={`Row ${rowIndex + 1}`} // Placeholder for empty rows
-                                      style={{
-                                        color: row ? "inherit" : "grey", // Grey out empty rows in editor mode
-                                      }}
-                                    />
-                                    {question.rows.length > 1 && (
-                                      <button
-                                        className="delete-grid-item"
-                                        onClick={() => handleDeleteRow(question.id, rowIndex)}
-                                      >
-                                        <X size={14} />
-                                      </button>
-                                    )}
-                                  </div>
-                                ))}
-                                <button className="add-option-button" onClick={() => handleAddRow(question.id)}>
-                                  <Plus size={16} /> Add Row
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        {!isPreviewMode && (
-                          <div
-                            className={`question-actions-vertical ${selectedQuestionId === question.id ? "visible" : ""}`}
-                          >
-                            <button
-                              className={`icon-button required-badge ${question.required ? "active" : ""}`}
-                              onClick={() => {
-                                setQuestions(
-                                  questions.map((q) => (q.id === question.id ? { ...q, required: !q.required } : q)),
-                                )
-                              }}
-                              title={question.required ? "Required" : "Optional"}
-                            >
-                              <BadgeAlert size={18} />
-                            </button>
-                            <button
-                              className="icon-button"
-                              onClick={() => handleDeleteQuestion(question.id)}
-                              title="Delete question"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        )}
+                        
                       </div>
                     ) : null}
                   </div>
                   {/* Drop zone after each question */}
-      {!isPreviewMode && (
-        <div
-          className={`drop-zone ${dropZoneActive === index + 1 ? 'active' : ''} ${draggedQuestionType ? 'visible' : ''}`}
-          onDragOver={(e) => handleDropZoneDragOver(e, index + 1)}
-          onDragLeave={handleDropZoneDragLeave}
-          onDrop={(e) => handleDropZoneDrop(e, index + 1)}
-        >
-          <div className="drop-zone-content">
-            <div className="drop-zone-line"></div>
-            <div className="drop-zone-text">Drop here to add question</div>
-            <div className="drop-zone-line"></div>
-          </div>
-        </div>
-      )}
-    </React.Fragment>
+                  {!isPreviewMode && (
+                    <div
+                      className={`drop-zone ${dropZoneActive === index + 1 ? 'active' : ''} ${draggedQuestionType ? 'visible' : ''}`}
+                      onDragOver={(e) => handleDropZoneDragOver(e, index + 1)}
+                      onDragLeave={handleDropZoneDragLeave}
+                      onDrop={(e) => handleDropZoneDrop(e, index + 1)}
+                    >
+                      <div className="drop-zone-content">
+                        <div className="drop-zone-line"></div>
+                        <div className="drop-zone-text">Drop here to add question</div>
+                        <div className="drop-zone-line"></div>
+                      </div>
+                    </div>
+                  )}
+                </React.Fragment>
                   
                   
                 ))}
@@ -4049,37 +3320,36 @@ const handleDropZoneDrop = (e, position) => {
       </div>
 
       {/* Fixed: Conditionally render the confirmation dialog */}
-      {
-  deleteConfirmation.show && (
-    <div className="confirmationOverlay">
-      <div className="confirmationDialog">
-        <div className="confirmationHeader">
-          <div className="confirmationIcon">
-            <AlertTriangle size={28} />
+      {deleteConfirmation.show && (
+          <div className="confirmationOverlay">
+            <div className="confirmationDialog">
+              <div className="confirmationHeader">
+                <div className="confirmationIcon">
+                  <AlertTriangle size={28} />
+                </div>
+                <h3>Delete Survey</h3>
+              </div>
+              <div className="confirmationContent">
+                <p>
+                  Are you sure you want to delete
+                  <span className="surveyTitle">"{deleteConfirmation.surveyTitle}"</span>?
+                </p>
+                <div className="warningText">
+                  <AlertTriangle size={16} />
+                  This action cannot be undone.
+                </div>
+              </div>
+              <div className="confirmationButtons">
+                <button className="cancelButton" onClick={cancelDelete}>
+                  Cancel
+                </button>
+                <button className="deleteButton" onClick={confirmDelete}>
+                  Delete Survey
+                </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-          <h3>Delete Survey</h3>
-        </div>
-        <div className="confirmationContent">
-          <p>
-            Are you sure you want to delete
-            <span className="surveyTitle">"{deleteConfirmation.surveyTitle}"</span>?
-          </p>
-          <div className="warningText">
-            <AlertTriangle size={16} />
-            This action cannot be undone.
-          </div>
-        </div>
-        <div className="confirmationButtons">
-          <button className="cancelButton" onClick={cancelDelete}>
-            Cancel
-          </button>
-          <button className="deleteButton" onClick={confirmDelete}>
-            Delete Survey
-          </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
   )
 }

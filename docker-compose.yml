@@ -1,0 +1,29 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: tUmCfOiMwHytiWUaPLuNcbmdVbQvYAGm
+      MYSQL_DATABASE: railway
+    ports:
+      - "3307:3306" # Map host port 3307 to container port 3306
+    networks:
+      - formly-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend-container
+    environment:
+      DATABASE_URL: mysql://root:tUmCfOiMwHytiWUaPLuNcbmdVbQvYAGm@mysql-container:3307/railway
+    ports:
+      - "5173:5173"
+    depends_on:
+      - mysql
+    networks:
+      - formly-network
+
+networks:
+  formly-network:
+    driver: bridge

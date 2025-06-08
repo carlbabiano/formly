@@ -20,8 +20,8 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       server: {
-        host: 'localhost', // Ensure the server binds to localhost
-        port: 5173,        // Use the default Vite port
+        host: 'localhost', // <-- this is important
+        port: 5173,
         strictPort: true,  // Prevent Vite from switching to another port
         hmr: {
           protocol: 'ws',  // Use WebSocket protocol for HMR
