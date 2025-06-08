@@ -1,11 +1,11 @@
 <?php
-$host = "mysql.railway.internal"; // Hostname from Railway
-$dbname = "railway"; // Database name from Railway
+$host = getenv('MYSQLHOST');
+$dbname = getenv('MYSQLDATABASE');
 $charset = "utf8mb4";
-$port = 3306; // Port number from Railway
+$port = getenv('MYSQLPORT');
 $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
-$db_username = "root"; // Username from Railway
-$db_password = "sVtDdRiIbKntJSbsZvcBOuacSgjlysjt"; // Replace with the actual password from Railway
+$db_username = getenv('MYSQLUSER');
+$db_password = getenv('MYSQL_PASSWORD');
 
 try {
     $pdo = new PDO($dsn, $db_username, $db_password);

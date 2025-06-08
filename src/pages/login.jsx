@@ -80,7 +80,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("https://formly-production.up.railway.app/login.php", {
+      const response = await axios.post(`${process.env.BACKEND_URL}/login.php`, {
         email: formData.email,
         password: formData.password,
       })
