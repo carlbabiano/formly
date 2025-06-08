@@ -80,7 +80,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/login.php", {
+      const response = await axios.post("https://formly-nu.vercel.app/formlydb/formly/src/backend/login.php", {
         email: formData.email,
         password: formData.password,
       })
