@@ -97,13 +97,15 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
       if (urlSurveyId && !surveyData) {
         try {
           setLoading(true)
-          const response = await fetch(`https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/getSurvey.php?id=${urlSurveyId}`)
+          const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
 
-          if (!response.ok) {
-            throw new Error("Failed to fetch survey data")
-          }
+        const response = await fetch(`${backendUrl}/src/backend/getSurvey.php?id=${urlSurveyId}`);
 
-          const data = await response.json()
+        if (!response.ok) {
+          throw new Error("Failed to fetch survey data");
+        }
+
+        const data = await response.json();
 
           if (data.success) {
             // Set survey data
@@ -280,10 +282,12 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
 
   const fetchSurveyMetadata = async (surveyId) => {
     try {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+  
       const response = await fetch(
-        `https://formly-production.up.railway.app/createdSurveys.php?userId=${localStorage.getItem("userId")}`,
-      )
-      const data = await response.json()
+        `${backendUrl}/createdSurveys.php?userId=${localStorage.getItem("userId")}`
+      );
+      const data = await response.json();
 
       if (data.success) {
         const currentSurvey = data.surveys.find((survey) => survey.id == surveyId)
@@ -308,7 +312,9 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
     const newStatus = !acceptingResponses
 
     try {
-      const response = await fetch("https://formly-production.up.railway.app/updateAcceptingResponses.php", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+    
+      const response = await fetch(`${backendUrl}/updateAcceptingResponses.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -318,7 +324,7 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
           surveyId: surveyId,
           acceptingResponses: newStatus,
         }),
-      })
+      });
 
       const data = await response.json()
 
@@ -345,15 +351,17 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
 
   const confirmDelete = async () => {
     try {
-      const response = await fetch("https://formly-production.up.railway.app/formlydb/formly/src/backend/deleteSurvey.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ surveyId: deleteConfirmation.surveyId }),
-      })
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
 
-      const data = await response.json()
+        const response = await fetch(`${backendUrl}/src/backend/deleteSurvey.php`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ surveyId: deleteConfirmation.surveyId }),
+        });
+
+        const data = await response.json();
 
       if (data.success) {
         setDeleteConfirmation({ show: false, surveyId: null, surveyTitle: "" })
@@ -469,14 +477,16 @@ const handlePublish = async () => {
   console.log("Survey Payload:", survey)
 
   try {
-    const response = await fetch("https://formly-production.up.railway.app/formlydb/formly/src/backend/publishSurvey.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(survey),
-    })
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+
+    const response = await fetch(`${backendUrl}/src/backend/publishSurvey.php`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(survey),
+    });
 
     if (!response.ok) {
       const errorText = await response.text()
@@ -507,10 +517,16 @@ const handlePublish = async () => {
       if (data.survey.id) {
         const fetchSurvey = async () => {
           try {
-            const response = await fetch(
-              `https://formly-production.up.railway.app/getSurvey.php?id=${data.survey.id}`,
-            )
-            const surveyData = await response.json()
+            const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+        
+            const response = await fetch(`${backendUrl}/getSurvey.php?id=${data.survey.id}`);
+        
+            if (!response.ok) {
+              throw new Error("Failed to fetch survey data");
+            }
+        
+            const surveyData = await response.json();
+        
 
             if (surveyData.success) {
               // Transform the questions as in the useEffect hook

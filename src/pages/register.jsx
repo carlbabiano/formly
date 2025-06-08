@@ -190,25 +190,26 @@ const Register = () => {
 
     // Submit the registration form
     try {
-      const response = await axios.post(`${process.env.BACKEND_URL}/src/backend/register.php`, {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+      const response = await axios.post(`${backendUrl}/src/backend/register.php`, {
         email: formData.email,
         password: formData.password,
         firstName: formData.firstName,
-        lastName: formData.lastName || null, // Optional
-      })
-
+        lastName: formData.lastName || null,
+      });
+    
       if (response.data.success) {
-        const { token, user } = response.data // Extract token and user from the response
-        localStorage.setItem("token", token) // Store the token in localStorage
-        localStorage.setItem("userId", user.id) // Store the userId in localStorage
-        localStorage.setItem("email", user.email) // Store the email in localStorage
-        navigate("/formly", { replace: true }) // Redirect to the dashboard
+        const { token, user } = response.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", user.id);
+        localStorage.setItem("email", user.email);
+        navigate("/formly", { replace: true });
       } else {
-        setValidationError(response.data.message || "Registration failed.")
+        setValidationError(response.data.message || "Registration failed.");
       }
     } catch (err) {
-      console.error("An error occurred during registration:", err)
-      setValidationError("An error occurred. Please try again.")
+      console.error("An error occurred during registration:", err);
+      setValidationError("An error occurred. Please try again.");
     }
   }
 

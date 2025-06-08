@@ -80,7 +80,8 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(`${process.env.BACKEND_URL}/login.php`, {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+      const response = await axios.post(`${backendUrl}/src/backend/login.php`, {
         email: formData.email,
         password: formData.password,
       })

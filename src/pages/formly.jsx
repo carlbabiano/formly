@@ -1,7 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import "./formly.css"
-import Footer from "../components/footer"
 import { FileText, Layers, Clock } from "lucide-react"
 
 const Formly = () => {

@@ -85,9 +85,11 @@ const ForgotPassword = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("https://formly-production.up.railway.app/forgot-password.php", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+  
+      const response = await axios.post(`${backendUrl}/src/backend/forgot-password.php`, {
         email: email,
-      })
+      });
 
       if (response.data.success) {
         setIsSuccess(true)
@@ -138,10 +140,12 @@ const ForgotPassword = () => {
     setVerifyingOtp(true)
 
     try {
-      const response = await axios.post("https://formly-production.up.railway.app/verify-otp.php", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+  
+      const response = await axios.post(`${backendUrl}/src/backend/verify-otp.php`, {
         email: email,
         otp: otp,
-      })
+      });
 
       if (response.data.success) {
         setIsSuccess(true)
@@ -244,10 +248,12 @@ const ForgotPassword = () => {
     setResettingPassword(true)
 
     try {
-      const response = await axios.post("https://formly-production.up.railway.app/reset-password.php", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+  
+      const response = await axios.post(`${backendUrl}/src/backend/reset-password.php`, {
         temp_token: tempToken,
         password: password,
-      })
+      });
 
       if (response.data.success) {
         setIsSuccess(true)

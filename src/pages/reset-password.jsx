@@ -47,9 +47,11 @@ const ResetPassword = () => {
   const verifyToken = async (token) => {
     setIsVerifying(true)
     try {
-      const response = await axios.post("https://formly-production.up.railway.app/verify-token.php", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+    
+      const response = await axios.post(`${backendUrl}/verify-token.php`, {
         token: token,
-      })
+      });
 
       if (!response.data.success) {
         setTokenValid(false)
@@ -148,10 +150,12 @@ const ResetPassword = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/reset-password.php", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+    
+      const response = await axios.post(`${backendUrl}/src/backend/reset-password.php`, {
         token: token,
         password: password,
-      })
+      });
 
       if (response.data.success) {
         setIsSuccess(true)

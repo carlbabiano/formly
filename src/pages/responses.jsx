@@ -41,9 +41,11 @@ export default function ResponsesAnalytics() {
       setLoading(true)
       setError(null)
 
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+
       // Fetch survey details
-      const surveyResponse = await fetch(`https://formly-production.up.railway.app/getSurvey.php?id=${surveyId}`)
-      const surveyData = await surveyResponse.json()
+      const surveyResponse = await fetch(`${backendUrl}/src/backend/getSurvey.php?id=${surveyId}`);
+      const surveyData = await surveyResponse.json();
 
       if (!surveyData.success) {
         throw new Error(surveyData.message || "Failed to fetch survey")
@@ -53,31 +55,33 @@ export default function ResponsesAnalytics() {
 
       // Fetch responses
       try {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+      
         const responsesResponse = await fetch(
-          `https://formly-production.up.railway.app/getResponses.php?surveyId=${surveyId}`,
-        )
-        const responseText = await responsesResponse.text()
-
-        let responsesData
+          `${backendUrl}/src/backend/getResponses.php?surveyId=${surveyId}`
+        );
+        const responseText = await responsesResponse.text();
+      
+        let responsesData;
         try {
-          responsesData = JSON.parse(responseText)
+          responsesData = JSON.parse(responseText);
         } catch (parseError) {
-          console.error("Failed to parse response:", responseText.substring(0, 200))
-          throw new Error("Invalid response format from server")
+          console.error("Failed to parse response:", responseText.substring(0, 200));
+          throw new Error("Invalid response format from server");
         }
-
+      
         if (responsesData.success) {
-          setResponses(responsesData.responses || [])
-          processAnalytics(surveyData.survey, responsesData.responses || [])
+          setResponses(responsesData.responses || []);
+          processAnalytics(surveyData.survey, responsesData.responses || []);
         } else {
-          console.warn("Responses fetch failed:", responsesData.message)
-          setResponses([])
-          processAnalytics(surveyData.survey, [])
+          console.warn("Responses fetch failed:", responsesData.message);
+          setResponses([]);
+          processAnalytics(surveyData.survey, []);
         }
       } catch (responsesError) {
-        console.error("Error fetching responses:", responsesError)
-        setResponses([])
-        processAnalytics(surveyData.survey, [])
+        console.error("Error fetching responses:", responsesError);
+        setResponses([]);
+        processAnalytics(surveyData.survey, []);
       }
     } catch (err) {
       console.error("Error fetching data:", err)

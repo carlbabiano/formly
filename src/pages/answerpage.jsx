@@ -74,10 +74,13 @@ function AnswerPage() {
   useEffect(() => {
     const fetchSurvey = async () => {
       try {
-        console.log("Survey ID from URL:", surveyId)
-        const response = await fetch(`https://formly-production.up.railway.app/getSurvey.php?id=${surveyId}`)
-        const data = await response.json()
-        console.log("Backend Response:", data)
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+    
+        console.log("Survey ID from URL:", surveyId);
+        const response = await fetch(`${backendUrl}/getSurvey.php?id=${surveyId}`);
+        const data = await response.json();
+    
+        console.log("Backend Response:", data);
 
         if (data.success) {
           console.log("Survey Data:", data.survey)

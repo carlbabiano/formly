@@ -3,7 +3,6 @@ import { getAnalytics } from "firebase/analytics";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 import axios from "axios"; // Import axios for API calls
 
-
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCn-DHT5V9D8IpfrvzbwGEZJZI3cLNb7gU",
@@ -27,7 +26,8 @@ provider.setCustomParameters({
   prompt: "select_account", // Force account selection every time
 });
 
-
+// Backend URL from environment variable
+const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
 
 export const handleGoogleSignIn = async (navigate, setValidationError) => {
   try {
@@ -46,7 +46,7 @@ export const handleGoogleSignIn = async (navigate, setValidationError) => {
     const lastName = lastNameParts.join(" ") || null;
 
     // Send the user's email, first name, and last name to the backend
-    const response = await axios.post("https://formly-production.up.railway.app/google_register.php", {
+    const response = await axios.post(`${backendUrl}/src/backend/google_register.php`, {
       email: user.email,
       firstName: firstName,
       lastName: lastName,
@@ -68,17 +68,17 @@ export const handleGoogleSignIn = async (navigate, setValidationError) => {
 };
 
 export const handleLogout = async (navigate) => {
-    const auth = getAuth();
-    try {
-      await signOut(auth); // Sign out from Firebase (Google users)
-      console.log("User logged out successfully");
-      localStorage.removeItem("token");
-      localStorage.removeItem("userId"); // Store the userId in localStorage
-      localStorage.removeItem("email"); // Example: Clear token from localStorage
-      localStorage.removeItem("draftSurvey"); // Example: Clear draft from localStorage
-      
-      navigate("/login");
-    } catch (error) {
-      console.error("Error during logout:", error.message);
-    }
-  };
+  const auth = getAuth();
+  try {
+    await signOut(auth); // Sign out from Firebase (Google users)
+    console.log("User logged out successfully");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId"); // Store the userId in localStorage
+    localStorage.removeItem("email"); // Example: Clear token from localStorage
+    localStorage.removeItem("draftSurvey"); // Example: Clear draft from localStorage
+
+    navigate("/login");
+  } catch (error) {
+    console.error("Error during logout:", error.message);
+  }
+};

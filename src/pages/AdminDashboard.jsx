@@ -25,8 +25,10 @@ export default function AdminDashboard() {
           return
         }
 
-        const response = await fetch(`https://formly-production.up.railway.app/createdSurveys.php?userId=${userId}`)
-        const data = await response.json()
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+
+        const response = await fetch(`${backendUrl}/createdSurveys.php?userId=${userId}`);
+        const data = await response.json();
 
         if (data.success) {
           setSurveys(data.surveys)
@@ -101,15 +103,17 @@ export default function AdminDashboard() {
   // Confirm delete
   const confirmDelete = async () => {
     try {
-      const response = await fetch("https://formly-production.up.railway.app/deleteSurvey.php", {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+  
+      const response = await fetch(`${backendUrl}/deleteSurvey.php`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ surveyId: deleteConfirmation.surveyId }),
-      })
-
-      const data = await response.json()
+      });
+  
+      const data = await response.json();
 
       if (data.success) {
         // Remove the survey from the local state
