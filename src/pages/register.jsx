@@ -190,7 +190,7 @@ const Register = () => {
 
     // Submit the registration form
     try {
-      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/register.php", {
+      const response = await axios.post("https://formly-production.up.railway.app/register.php", {
         email: formData.email,
         password: formData.password,
         firstName: formData.firstName,

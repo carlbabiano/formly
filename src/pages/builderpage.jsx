@@ -281,7 +281,7 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
   const fetchSurveyMetadata = async (surveyId) => {
     try {
       const response = await fetch(
-        `https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/createdSurveys.php?userId=${localStorage.getItem("userId")}`,
+        `https://formly-production.up.railway.app/createdSurveys.php?userId=${localStorage.getItem("userId")}`,
       )
       const data = await response.json()
 
@@ -308,7 +308,7 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
     const newStatus = !acceptingResponses
 
     try {
-      const response = await fetch("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/updateAcceptingResponses.php", {
+      const response = await fetch("https://formly-production.up.railway.app/updateAcceptingResponses.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -345,7 +345,7 @@ export default function BuilderPage({ surveyData, viewMode = false }) {
 
   const confirmDelete = async () => {
     try {
-      const response = await fetch("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/deleteSurvey.php", {
+      const response = await fetch("https://formly-production.up.railway.app/formlydb/formly/src/backend/deleteSurvey.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -469,7 +469,7 @@ const handlePublish = async () => {
   console.log("Survey Payload:", survey)
 
   try {
-    const response = await fetch("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/publishSurvey.php", {
+    const response = await fetch("https://formly-production.up.railway.app/formlydb/formly/src/backend/publishSurvey.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -508,7 +508,7 @@ const handlePublish = async () => {
         const fetchSurvey = async () => {
           try {
             const response = await fetch(
-              `https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/getSurvey.php?id=${data.survey.id}`,
+              `https://formly-production.up.railway.app/getSurvey.php?id=${data.survey.id}`,
             )
             const surveyData = await response.json()
 

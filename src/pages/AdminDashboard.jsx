@@ -25,7 +25,7 @@ export default function AdminDashboard() {
           return
         }
 
-        const response = await fetch(`https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/createdSurveys.php?userId=${userId}`)
+        const response = await fetch(`https://formly-production.up.railway.app/createdSurveys.php?userId=${userId}`)
         const data = await response.json()
 
         if (data.success) {
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
   // Confirm delete
   const confirmDelete = async () => {
     try {
-      const response = await fetch("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/deleteSurvey.php", {
+      const response = await fetch("https://formly-production.up.railway.app/deleteSurvey.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

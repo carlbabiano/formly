@@ -42,7 +42,7 @@ export default function ResponsesAnalytics() {
       setError(null)
 
       // Fetch survey details
-      const surveyResponse = await fetch(`https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/getSurvey.php?id=${surveyId}`)
+      const surveyResponse = await fetch(`https://formly-production.up.railway.app/getSurvey.php?id=${surveyId}`)
       const surveyData = await surveyResponse.json()
 
       if (!surveyData.success) {
@@ -54,7 +54,7 @@ export default function ResponsesAnalytics() {
       // Fetch responses
       try {
         const responsesResponse = await fetch(
-          `https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/getResponses.php?surveyId=${surveyId}`,
+          `https://formly-production.up.railway.app/getResponses.php?surveyId=${surveyId}`,
         )
         const responseText = await responsesResponse.text()
 

@@ -46,7 +46,7 @@ export const handleGoogleSignIn = async (navigate, setValidationError) => {
     const lastName = lastNameParts.join(" ") || null;
 
     // Send the user's email, first name, and last name to the backend
-    const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/google_register.php", {
+    const response = await axios.post("https://formly-production.up.railway.app/google_register.php", {
       email: user.email,
       firstName: firstName,
       lastName: lastName,
