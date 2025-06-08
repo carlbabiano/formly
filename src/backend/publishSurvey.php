@@ -37,16 +37,15 @@ try {
     // Log the decoded input payload for debugging
     error_log("Decoded Input Payload: " . json_encode($input));
 
-    if (empty($input['title']) || !isset($input['questions']) || !is_array($input['questions'])) {
-        throw new Exception("Invalid input: Missing or invalid title or questions.");
-    }
+    
+        if (empty($input['title']) || !isset($input['questions']) || !is_array($input['questions'])) {
+            throw new Exception("Invalid input: Missing or invalid title or questions.");
+        }
 
-    $pdo = new PDO("mysql:host=localhost;dbname=formlydb", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Check if this is an update (survey ID provided) or new survey
-    $surveyId = $input['id'] ?? null;
-    $isUpdate = false;
+        // Use the $pdo object from db.php
+        // Check if this is an update (survey ID provided) or new survey
+        $surveyId = $input['id'] ?? null;
+        $isUpdate = false;
 
     if ($surveyId) {
         // Check if survey exists and belongs to the current user

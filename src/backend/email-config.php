@@ -16,4 +16,4 @@ define('SMTP_PASSWORD', 'tsoo omhw hrnn jbjy'); // Use your Gmail App Password
 define('EMAIL_FROM', '202310749@gordoncollege.edu.ph'); // Sender's email address
 define('EMAIL_FROM_NAME', 'Formly Team'); // Sender's name
 define('APP_NAME', 'Formly');
-define('APP_URL', 'http://localhost:5173');
+define('APP_URL', 'http://formly-1edkal5au-zxcv123s-projects.vercel.app');

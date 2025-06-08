@@ -85,7 +85,7 @@ const ForgotPassword = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("http://localhost/formlydb/formly/src/backend/forgot-password.php", {
+      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/forgot-password.php", {
         email: email,
       })
 
@@ -138,7 +138,7 @@ const ForgotPassword = () => {
     setVerifyingOtp(true)
 
     try {
-      const response = await axios.post("http://localhost/formlydb/formly/src/backend/verify-otp.php", {
+      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/verify-otp.php", {
         email: email,
         otp: otp,
       })
@@ -244,7 +244,7 @@ const ForgotPassword = () => {
     setResettingPassword(true)
 
     try {
-      const response = await axios.post("http://localhost/formlydb/formly/src/backend/reset-password.php", {
+      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/reset-password.php", {
         temp_token: tempToken,
         password: password,
       })

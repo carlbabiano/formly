@@ -47,7 +47,7 @@ const ResetPassword = () => {
   const verifyToken = async (token) => {
     setIsVerifying(true)
     try {
-      const response = await axios.post("http://localhost/formlydb/formly/src/backend/verify-token.php", {
+      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/verify-token.php", {
         token: token,
       })
 
@@ -148,7 +148,7 @@ const ResetPassword = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post("http://localhost/formlydb/formly/src/backend/reset-password.php", {
+      const response = await axios.post("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/reset-password.php", {
         token: token,
         password: password,
       })

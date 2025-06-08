@@ -75,7 +75,7 @@ function AnswerPage() {
     const fetchSurvey = async () => {
       try {
         console.log("Survey ID from URL:", surveyId)
-        const response = await fetch(`http://localhost/formlydb/formly/src/backend/getSurvey.php?id=${surveyId}`)
+        const response = await fetch(`https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/getSurvey.php?id=${surveyId}`)
         const data = await response.json()
         console.log("Backend Response:", data)
 
@@ -270,7 +270,7 @@ function AnswerPage() {
     setIsSubmitting(true);
   
     try {
-      const response = await fetch("http://localhost/formlydb/formly/src/backend/submitSurvey.php", {
+      const response = await fetch("https://formly-1edkal5au-zxcv123s-projects.vercel.app/formlydb/formly/src/backend/submitSurvey.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
