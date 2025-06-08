@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *'); // Allow requests only from your frontend
+header('Access-Control-Allow-Origin: https://formly-nu.vercel.app'); // Allow requests only from your frontend
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); // Allow specific HTTP methods
 header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allow specific headers
 
