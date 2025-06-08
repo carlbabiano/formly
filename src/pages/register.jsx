@@ -190,7 +190,8 @@ const Register = () => {
 
     // Submit the registration form
     try {
-      const response = await axios.post(`${backendUrl}/register.php`, {
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5173";
+      const response = await axios.post(`${backendUrl}/src/backend/register.php`, {
         email: formData.email,
         password: formData.password,
         firstName: formData.firstName,
