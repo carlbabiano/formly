@@ -1,4 +1,6 @@
 <?php
+error_log("Registration request received");
+error_log(print_r($_POST, true));
 require_once 'cors.php';
 require_once 'db.php'; // Include the centralized database connection
 require_once __DIR__ . '/../../vendor/autoload.php';

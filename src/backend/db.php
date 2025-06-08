@@ -1,22 +1,22 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+$host = getenv('MYSQL_HOST'); // metro.proxy.rlay.net
+$dbname = getenv('MYSQL_DATABASE'); // railway
+$charset = 'utf8mb4';
+$port = getenv('MYSQL_PORT'); // 43641
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
-$host = getenv('MYSQLHOST');
-$dbname = getenv('MYSQLDATABASE');
-$charset = "utf8mb4";
-$port = getenv('MYSQLPORT');
 $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=$charset";
-$db_username = getenv('MYSQLUSER');
-$db_password = getenv('MYSQL_PASSWORD');
+
+$db_username = getenv('MYSQL_USER'); // root
+$db_password = getenv('MYSQL_PASSWORD'); // your_password_here
 
 try {
     $pdo = new PDO($dsn, $db_username, $db_password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Database connection failed: ' . $e->getMessage()]);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Database connection failed: ' . $e->getMessage()
+    ]);
     exit;
 }
 ?>
