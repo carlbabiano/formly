@@ -1,16 +1,12 @@
-# Stage 1: Build app with full Node image
-FROM node:22 AS builder
+# Use an official PHP image
+FROM php:8.2-apache
 
-WORKDIR /app
+# Install required PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql
 
-# Install system dependencies needed by some NPM packages
-RUN apt-get update && apt-get install -y python3 make g++
-
-# Copy and install dependencies
-COPY package*.json ./
-RUN npm install
-
-# Copy app code and build it
+# Copy application files
+WORKDIR /var/www/html
 COPY . .
-RUN npm run build
 
+# Expose port 80
+EXPOSE 80
