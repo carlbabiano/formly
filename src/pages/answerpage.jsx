@@ -247,9 +247,20 @@ function AnswerPage() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page refresh
+    e.preventDefault();
   
     if (isSubmitting) return;
+  
+    // Validate email before submitting
+    if (!respondentEmail) {
+      setValidationErrors((prev) => ({ ...prev, email: "Email is required." }));
+      alert("Please provide a valid email address.");
+      return;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(respondentEmail)) {
+      setValidationErrors((prev) => ({ ...prev, email: "Invalid email format." }));
+      alert("Please provide a valid email address.");
+      return;
+    }
   
     if (!validateForm()) {
       alert("Please fill in all required fields before submitting.");
@@ -272,9 +283,7 @@ function AnswerPage() {
   
       if (data.success) {
         alert("Survey submitted successfully!");
-        removeSessionData(`survey_${surveyId}_answers`);
-        setAnswers({});
-        setRespondentEmail("");
+        // Keep the email in state
         setValidationErrors({});
       } else {
         alert(`Failed to submit survey: ${data.message}`);
@@ -499,6 +508,36 @@ function AnswerPage() {
             <h2>Created By:</h2>
             <p className="created-by">{creatorEmail || "Loading..."}</p>
           </div>
+          <div className="email-input-section">
+            <h2 className="email-input-title">
+              Answered By: <span className="required-asterisk">*</span>
+            </h2>
+            <input
+              className={`email-input ${validationErrors.email ? "error" : ""}`}
+              type="email"
+              value={respondentEmail}
+              onChange={(e) => {
+                const email = e.target.value;
+                setRespondentEmail(email);
+
+                // Real-time email validation
+                if (!email) {
+                  setValidationErrors((prev) => ({ ...prev, email: "Email is required." }));
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                  setValidationErrors((prev) => ({ ...prev, email: "Invalid email format." }));
+                } else {
+                  setValidationErrors((prev) => {
+                    const newErrors = { ...prev };
+                    delete newErrors.email;
+                    return newErrors;
+                  });
+                }
+              }}
+              placeholder="Enter your email..."
+              required
+            />
+            {validationErrors.email && <div className="validation-error">{validationErrors.email}</div>}
+          </div>
 
           <div className="survey-title-card preview-card">
             <div>
@@ -507,35 +546,6 @@ function AnswerPage() {
             </div>
           </div>
 
-          <div className={`email-input-card ${validationErrors.email ? "validation-error" : ""}`}>
-            <div className="question-header">
-              <div className="question-icon">
-                <Mail size={18} />
-              </div>
-              <div className="question-title-preview">
-                Email Address
-                <span className="required-indicator">*</span>
-              </div>
-            </div>
-            <input
-              className={`short-text-input ${validationErrors.email ? "error" : ""}`}
-              type="email"
-              value={respondentEmail}
-              onChange={(e) => {
-                setRespondentEmail(e.target.value)
-                if (validationErrors.email) {
-                  setValidationErrors((prev) => {
-                    const newErrors = { ...prev }
-                    delete newErrors.email
-                    return newErrors
-                  })
-                }
-              }}
-              placeholder="Enter your email address..."
-              required
-            />
-            {validationErrors.email && <div className="validation-error">{validationErrors.email}</div>}
-          </div>
 
           <div className="survey-questions-list">
             {survey.questions.map((question) => {

@@ -15,6 +15,7 @@
   --scrollbar-thumb: #c1c1c1;
   --scrollbar-track: #f1f1f1;
   --header-height: 60px;
+  --danger-color: #e53e3e;
 }
 
 * {
@@ -3378,94 +3379,48 @@ select {
 }
 
 /* Email input card styles */
-.email-input-card {
-  background-color: var(--card-background);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  padding: 16px;
-  margin-bottom: 20px;
-  position: relative;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+.email-input-section {
+  margin-bottom: 16px; /* Add spacing below the section */
 }
 
-.email-input-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.email-input-title {
+  margin-bottom: 8px; /* Add spacing below the title */
+  color: var(--text-primary); /* Primary text color */
 }
 
-.email-input-card .question-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.email-input-card .question-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 12px;
-  color: var(--primary-color);
-  background-color: var(--primary-light);
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-}
-
-.email-input-card .question-title-preview {
-  font-size: 17px;
-  font-family: "Segoe UI", sans-serif;
-  font-weight: 500;
-  color: var(--text-color);
-  line-height: 1.5;
-}
-
-.email-input-card .short-text-input {
-  font-size: 14px;
-  font-family: "Segoe UI", sans-serif;
+.email-input {
+  font-size: 14px; /* Adjust the font size */
+  font-family: "Segoe Ui", sans-serif;
   font-weight: 400;
-  color: var(--text-color);
-  background: transparent;
+  color: var(--text-color); /* Use your primary text color */
+  background: transparent; /* White background */
   width: 70%;
   outline: none;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  line-height: 1.5;
-  margin-left: 35px;
+  padding: 10px 12px; /* Add padding */
+  line-height: 1.5; /* Adjust line height */
   border: 1px solid var(--border-color);
   border-radius: 6px;
   transition: all 0.2s ease;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.email-input-card .short-text-input:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.1);
+.email-input.error {
+  border-color: var(--danger-color); /* Red border for error state */
 }
 
-.email-input-card .short-text-input:invalid {
-  border-color: #e53e3e;
-}
-
-.email-input-card .short-text-input:invalid:focus {
-  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.1);
-}
-
-/* Validation Error Styles */
 .validation-error {
-  border: 2px solid var(--error-color) !important;
-  background-color: var(--error-light) !important;
-  animation: shake 0.3s ease-in-out;
-}
-
-.email-input-card.validation-error {
-  border: 2px solid var(--error-color);
-  background-color: var(--error-light);
-  animation: shake 0.3s ease-in-out;
+  margin-top: 8px; /* Add spacing above the error message */
+  font-size: 12px; /* Smaller font size for the error message */
+  color: var(--danger-color); /* Red text color */
 }
 
 .question-card.validation-error {
   border: 2px solid var(--error-color);
   background-color: var(--error-light);
   animation: shake 0.3s ease-in-out;
+}
+.required-asterisk {
+  color: var(--danger-color); /* Red color for the asterisk */
+  font-size: 16px; /* Adjust size to match the title */
+  margin-left: 4px; /* Add spacing between text and asterisk */
 }
