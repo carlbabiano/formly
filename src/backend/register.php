@@ -1,19 +1,14 @@
 <?php
 error_log("Registration request received");
-error_log(print_r($_POST, true));
 require_once 'cors.php';
-require_once 'db.php'; // Include the centralized database connection
+require_once 'db.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 use Firebase\JWT\JWT;
 
 header("Content-Type: application/json");
 
-// Secret key for signing the JWT
-$secretKey = "your_secret_key"; // Replace with a secure key
+$secretKey = "your_secret_key"; // Use environment variable in production
 
-
-
-// Get the JSON input
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!isset($data["email"]) || !isset($data["password"]) || !isset($data["firstName"])) {
@@ -22,12 +17,12 @@ if (!isset($data["email"]) || !isset($data["password"]) || !isset($data["firstNa
 }
 
 $email = $data["email"];
-$password = password_hash($data["password"], PASSWORD_BCRYPT); // Hash the password
+$password = password_hash($data["password"], PASSWORD_BCRYPT);
 $firstName = $data["firstName"];
-$lastName = isset($data["lastName"]) ? $data["lastName"] : null; // Optional
+$lastName = isset($data["lastName"]) ? $data["lastName"] : null;
 
 try {
-    // Check if the email already exists in the database
+    // Check if email exists
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->execute(["email" => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -37,7 +32,7 @@ try {
         exit();
     }
 
-    // Insert the new user into the database
+    // Insert new user
     $stmt = $pdo->prepare("INSERT INTO users (email, password, first_name, last_name, provider) VALUES (:email, :password, :firstName, :lastName, 'manual')");
     $stmt->execute([
         "email" => $email,
@@ -46,7 +41,10 @@ try {
         "lastName" => $lastName,
     ]);
 
-    // Generate a JWT token
+    // Get the inserted user ID
+    $userId = $pdo->lastInsertId();
+
+    // Generate JWT token
     $baseUrl = getenv('VITE_BACKEND_URL') ?: 'http://localhost';
     $payload = [
         "iss" => $baseUrl,
@@ -60,18 +58,19 @@ try {
     ];
     $jwt = JWT::encode($payload, $secretKey, 'HS256');
 
-    // Send a success response
     echo json_encode([
         "success" => true,
         "message" => "User registered successfully.",
-        "token" => $jwt, // Include the JWT token
+        "token" => $jwt,
         "user" => [
-            "id" => $userId, // Include the user ID
-            "email" => $email, // Include the email
-            "firstName" => $firstName, // Include the first name
-            "lastName" => $lastName, // Include the last name
+            "id" => $userId,
+            "email" => $email,
+            "firstName" => $firstName,
+            "lastName" => $lastName,
         ]
     ]);
 } catch (PDOException $e) {
-    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    error_log("Database error: " . $e->getMessage());
+    echo json_encode(["success" => false, "message" => "Registration failed. Please try again."]);
 }
+?>

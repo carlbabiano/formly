@@ -1,11 +1,24 @@
 <?php
-header('Access-Control-Allow-Origin: https://formly-nu.vercel.app'); // Allow requests only from your frontend
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS'); // Allow specific HTTP methods
-header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allow specific headers
+$allowedOrigins = [
+    'https://formly-nu.vercel.app', // Replace with your actual Vercel domain
+    'http://localhost:3000', // For local development
+    'http://localhost:5173'  // For local development
+];
 
-// Handle preflight requests (OPTIONS method)
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+if (in_array($origin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    header('Access-Control-Allow-Origin: https://formly-nu.vercel.app'); // Default to production
+}
+
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Credentials: true');
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
-
+?>

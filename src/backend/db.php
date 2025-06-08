@@ -1,4 +1,6 @@
 <?php
+error_log("Registration request received");
+error_log(print_r($_POST, true));
 $host = getenv('MYSQL_HOST'); // metro.proxy.rlay.net
 $dbname = getenv('MYSQL_DATABASE'); // railway
 $charset = 'utf8mb4';
